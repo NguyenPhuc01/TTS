@@ -1,0 +1,33 @@
+.navbar {
+  background-color: #17171b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+.Name {
+  color: #fff;
+  margin-left: 20px;
+  margin-bottom: 0px;
+}
+.login {
+  display: flex;
+  justify-content: end;
+  margin-right: 20px;
+  color: #fff !important;
+}
+.nav {
+  display: flex;
+}
+.search {
+  width: 100%;
+}
+input {
+  width: 100%;
+  margin-left: 20px;
+  padding: 3px 5px;
+  color: #17171b;
+}
+input:focus {
+  outline: none;
+}
