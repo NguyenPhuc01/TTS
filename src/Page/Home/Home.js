@@ -4,7 +4,7 @@ import NavBar from "../../Component/NavBar/NavBar";
 import CardLayout from "../../Component/Card/CardLayout";
 import styles from "../Home/Home.module.css";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
   getProduct,
   removeProduct,
@@ -13,7 +13,6 @@ import {
 import { Link } from "react-router-dom";
 import Modall from "../../ultill/Modall";
 const Home = ({
-  product,
   getProduct,
   removeProduct,
   updateProduct,
@@ -28,6 +27,9 @@ const Home = ({
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
   const [search, setSearch] = useState("");
+
+  const test = useSelector((state) => state);
+  console.log("🚀 ~ file: Home.js:33 ~ test", test.Reducer.allProduct);
   useEffect(() => {
     getProduct();
   }, []);
@@ -88,8 +90,8 @@ const Home = ({
       <Row>
         <Col md={24}>
           <div className={styles.card}>
-            {product &&
-              product
+            {test.Reducer.allProduct &&
+              test.Reducer.allProduct
                 ?.filter((val) => {
                   if (search === "") {
                     return val;
@@ -257,11 +259,10 @@ const Home = ({
 };
 
 Home.propTypes = {
-  product: PropTypes.array.isRequired,
+  // product: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  product: state.Reducer.allProduct,
   getProduct: PropTypes.func.isRequired,
   removeProduct: PropTypes.func.isRequired,
   updateProduct: PropTypes.func.isRequired,
