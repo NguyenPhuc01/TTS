@@ -19,9 +19,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addProduct } from "../../Store/Actions/Action";
 import Modall from "../../ultill/Modall";
+import { useNavigate } from "react-router-dom";
 const NavBar = (props, { addProduct }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  // const [refresh, setRefresh] = useState(false);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   const handleAddProduct = () => {
     setIsModalOpen(true);
   };
@@ -45,8 +49,10 @@ const NavBar = (props, { addProduct }) => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-
+  const handleLogOut = () => {
+    localStorage.clear();
+    navigate("/dangNhap");
+  };
   return (
     <Row className={styles.navbar}>
       <Col md={4}>
@@ -58,9 +64,6 @@ const NavBar = (props, { addProduct }) => {
       </Col>
       <Col md={14}>
         <div className={styles.nav}>
-          <div>
-            <span>Movies</span>
-          </div>
           <div>
             <Button
               onClick={handleAddProduct}
@@ -88,14 +91,22 @@ const NavBar = (props, { addProduct }) => {
       <Col md={6}>
         <div className={styles.login}>
           <div>
-            <Dropdown overlay={DropDown}>
-              <a onClick={(e) => e.preventDefault()}>
-                <Space style={{ color: "#fff" }}>
-                  Đăng ký / Đăng Nhập
-                  <DownOutlined />
-                </Space>
-              </a>
-            </Dropdown>
+            {token ? (
+              <div>
+                <Button onClick={handleLogOut}>Log Out</Button>
+              </div>
+            ) : (
+              <div>
+                <Dropdown overlay={DropDown}>
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Space style={{ color: "#fff" }}>
+                      Đăng ký / Đăng Nhập
+                      <DownOutlined />
+                    </Space>
+                  </a>
+                </Dropdown>
+              </div>
+            )}
           </div>
         </div>
       </Col>

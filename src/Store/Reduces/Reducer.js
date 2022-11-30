@@ -1,8 +1,7 @@
 // import { GET_ALLPRODUCT, DELETE_PRODUCT, GET_DETAILPRODUCT } from "../Types";
 const inittialState = {
   allProduct: [],
-  detail: [],
-  allProductUpdate: [],
+  detail: {},
   userLogin: {},
 };
 const Reducer = (state = inittialState, action) => {
@@ -29,11 +28,11 @@ const Reducer = (state = inittialState, action) => {
       };
     case "UPDATE_PRODUCT":
       let filterProduct = [...state.allProduct].map((e) => {
-        var newArr;
+        var newObj;
         if (e.id === action.payload.id) {
-          newArr = action.payload;
+          newObj = action.payload;
           // console.log([...state.allProduct, newArr]);
-          return newArr;
+          return newObj;
         } else {
           return e;
         }
@@ -45,10 +44,8 @@ const Reducer = (state = inittialState, action) => {
       };
 
     case "USER_LOGIN":
-
-    console.log('action',action.payload);
+      console.log("action", action.payload);
       return {
-        
         userLogin: action.payload,
       };
     default:

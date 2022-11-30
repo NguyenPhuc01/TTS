@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Protected from "../src/Protected";
 import "./App.css";
 import DetaiProduct from "./Page/DetailProduct/DetaiProduct";
 import Home from "./Page/Home/Home";
@@ -25,10 +26,13 @@ function App() {
       />
       <Routes>
         <Route>
-          <Route path="/" element={<Home />}></Route>
           <Route path="/dangNhap" element={<Login />}></Route>
           <Route path="/dangKy" element={<Register />}></Route>
           <Route path=":id" element={<DetaiProduct />} />
+
+          <Route element={<Protected />}>
+            <Route path="/" element={<Home />}></Route>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

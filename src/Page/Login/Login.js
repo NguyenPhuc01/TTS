@@ -9,18 +9,12 @@ const Login = ({ LoginUser, userLogin }) => {
   const onFinish = (values) => {
     console.log("Success:", values);
     LoginUser(values);
+   
   };
-  const navigate = useNavigate();
-  const checkToken = () => {
-    if (userLogin.token !== undefined) {
-      navigate("/");
-    } else {
-      console.log("false");
-    }
-  };
-  useEffect(() => {
-    checkToken();
-  }, [userLogin]);
+
+  console.log("🚀 ~ file: Login.js ~ line 9 ~ Login ~ userLogin", userLogin);
+  // const navigate = useNavigate();
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

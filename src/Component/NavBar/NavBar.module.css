@@ -1,6 +1,6 @@
 .navbar {
   background-color: #17171b;
-  color: #fff;
+  /* color: #fff; */
   display: flex;
   align-items: center;
   height: 70px;
@@ -20,14 +20,18 @@
   display: flex;
 }
 .search {
-  width: 100%;
+  width: 70%;
 }
 input {
   width: 100%;
-  margin-left: 20px;
   padding: 3px 5px;
   color: #17171b;
 }
 input:focus {
   outline: none;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

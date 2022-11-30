@@ -70,6 +70,7 @@ export const LoginUser = (data) => async (dispatch) => {
       `https://fakestoreapi.com/auth/login`,
       data
     );
+    localStorage.setItem("token", response.data.token);
     dispatch({
       type: USER_LOGIN,
       payload: response.data,
