@@ -1,19 +1,7 @@
-import {
-  Col,
-  Dropdown,
-  Row,
-  Menu,
-  Space,
-  Button,
-  Modal,
-  Form,
-  Input,
-  Checkbox,
-  InputNumber,
-} from "antd";
+import { Col, Dropdown, Row, Space, Button } from "antd";
 import React, { useState } from "react";
 import styles from "../NavBar/NavBar.module.css";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
 import DropDown from "../../ultill/DropDown";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";

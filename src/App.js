@@ -5,7 +5,7 @@ import "./App.css";
 import DetaiProduct from "./Page/DetailProduct/DetaiProduct";
 import Home from "./Page/Home/Home";
 import Login from "./Page/Login/Login";
-import Register from "./Page/Regíter/Register";
+import Register from "./Page/Register/Register";
 
 function App() {
   return (
@@ -28,9 +28,9 @@ function App() {
         <Route>
           <Route path="/dangNhap" element={<Login />}></Route>
           <Route path="/dangKy" element={<Register />}></Route>
-          <Route path=":id" element={<DetaiProduct />} />
 
           <Route element={<Protected />}>
+            <Route path=":id" element={<DetaiProduct />}></Route>
             <Route path="/" element={<Home />}></Route>
           </Route>
         </Route>

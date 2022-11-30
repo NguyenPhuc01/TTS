@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Home from "./Page/Home/Home";
 import Login from "./Page/Login/Login";
+import { Outlet } from "react-router-dom";
 
 const Protected = ({ userLogin }) => {
   // console.log({ userLogin });
@@ -17,7 +18,7 @@ const Protected = ({ userLogin }) => {
   }, []);
   const token = localStorage.getItem("token");
   console.log("🚀 ~ file: Protected.js ~ line 13 ~ Protected ~ token", token);
-  return token  ? <Home /> : <Login />;
+  return token ? <Outlet /> : <Login />;
 };
 
 Protected.propTypes = {};

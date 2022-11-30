@@ -6,10 +6,11 @@ import styles from "../Login/Login.module.css";
 import { LoginUser } from "../../Store/Actions/Action";
 import { useNavigate } from "react-router-dom";
 const Login = ({ LoginUser, userLogin }) => {
+  const navigate = useNavigate();
   const onFinish = (values) => {
     console.log("Success:", values);
     LoginUser(values);
-   
+    navigate("/");
   };
 
   console.log("🚀 ~ file: Login.js ~ line 9 ~ Login ~ userLogin", userLogin);

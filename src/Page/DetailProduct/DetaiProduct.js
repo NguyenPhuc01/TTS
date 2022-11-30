@@ -3,20 +3,20 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../DetailProduct/DetailProduct.module.css";
 import PropTypes from "prop-types";
-import { connect, Connect } from "react-redux";
+import { connect } from "react-redux";
 import { getDetailProduct } from "../../Store/Actions/Action";
 const DetaiProduct = ({ getDetailProduct, detail }) => {
   let { id } = useParams();
   useEffect(() => {
     getDetailProduct(id);
   }, []);
-  console.log("detail", detail.rating);
+
   return (
     <Row>
       <Col md={8}>
         <div>
           <img
-            src={detail.image}
+            src={detail?.image}
             alt=""
             style={{
               width: "100%",
@@ -29,10 +29,10 @@ const DetaiProduct = ({ getDetailProduct, detail }) => {
       <Col md={16}>
         <div className={styles.detail}>
           <div>
-            <h3>{`title: ${detail.title}`}</h3>
+            <h3>{`title: ${detail?.title}`}</h3>
           </div>
           <div>
-            <span className={styles.price}>Price: {detail.price}</span>
+            <span className={styles.price}>Price: {detail?.price}</span>
           </div>
           <div>
             <span>rate: {detail?.rating?.rate}</span>
@@ -42,7 +42,7 @@ const DetaiProduct = ({ getDetailProduct, detail }) => {
           </div>
           <div>
             <span className={styles.description}>
-              description: {detail.description}
+              description: {detail?.description}
             </span>
           </div>
         </div>
@@ -52,7 +52,7 @@ const DetaiProduct = ({ getDetailProduct, detail }) => {
 };
 
 DetaiProduct.propTypes = {
-  getDetailProduct: PropTypes.array.isRequired,
+  // getDetailProduct: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({

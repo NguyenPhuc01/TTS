@@ -31,7 +31,7 @@ export const getDetailProduct = (id) => async (dispatch) => {
 };
 export const removeProduct = (id) => async (dispatch) => {
   try {
-    const response = await axios.delete(
+     await axios.delete(
       `https://fakestoreapi.com/products/${id}`
     );
     dispatch({
