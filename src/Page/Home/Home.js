@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Input, InputNumber, Modal, Row } from "antd";
+import { Button, Col, Form, Input, Modal, Row } from "antd";
 import NavBar from "../../Component/NavBar/NavBar";
 import CardLayout from "../../Component/Card/CardLayout";
 import styles from "../Home/Home.module.css";
-import PropTypes from "prop-types";
-import { connect, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  getDetailProduct,
   getProduct,
   removeProduct,
   updateProduct,
 } from "../../Store/Actions/Action";
 import { Link } from "react-router-dom";
-import Modall from "../../ultill/Modall";
-const Home = ({
-  getProduct,
-  removeProduct,
-  updateProduct,
-  getDetailProduct,
-  detail,
-}) => {
+const Home = () => {
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
@@ -28,16 +21,16 @@ const Home = ({
   const [price, setPrice] = useState(0);
   const [search, setSearch] = useState("");
 
-  const test = useSelector((state) => state);
-  console.log("🚀 ~ file: Home.js:33 ~ test", test.Reducer.allProduct);
+  const product = useSelector((state) => state);
+  const dispatch = useDispatch();
   useEffect(() => {
-    getProduct();
+    dispatch(getProduct());
   }, []);
   const handleChangeProduct = (id) => {
     console.log("change", id);
     setShow(true);
     setId(id);
-    getDetailProduct(id);
+    dispatch(getDetailProduct(id));
   };
   const handleDeteleProduct = (id) => {
     console.log("delete", id);
@@ -90,8 +83,8 @@ const Home = ({
       <Row>
         <Col md={24}>
           <div className={styles.card}>
-            {test.Reducer.allProduct &&
-              test.Reducer.allProduct
+            {product.Reducer.allProduct &&
+              product.Reducer.allProduct
                 ?.filter((val) => {
                   if (search === "") {
                     return val;
@@ -258,20 +251,16 @@ const Home = ({
   );
 };
 
-Home.propTypes = {
-  // product: PropTypes.array.isRequired,
-};
+// Home.propTypes = {
+//   // product: PropTypes.array.isRequired,
+// };
 
-const mapStateToProps = (state) => ({
-  getProduct: PropTypes.func.isRequired,
-  removeProduct: PropTypes.func.isRequired,
-  updateProduct: PropTypes.func.isRequired,
-  getDetailProduct: PropTypes.func.isRequired,
-  detail: state.Reducer.detail,
-});
+// const mapStateToProps = (state) => ({
+//   getProduct: PropTypes.func.isRequired,
+//   removeProduct: PropTypes.func.isRequired,
+//   updateProduct: PropTypes.func.isRequired,
+//   getDetailProduct: PropTypes.func.isRequired,
+//   detail: state.Reducer.detail,
+// });
 
-export default connect(mapStateToProps, {
-  getProduct,
-  removeProduct,
-  updateProduct,
-})(Home);
+export default Home;

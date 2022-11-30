@@ -2,21 +2,22 @@ import { Col, Row } from "antd";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../DetailProduct/DetailProduct.module.css";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDetailProduct } from "../../Store/Actions/Action";
-const DetaiProduct = ({ getDetailProduct, detail }) => {
+const DetaiProduct = () => {
   let { id } = useParams();
+  const dispatch = useDispatch();
   useEffect(() => {
-    getDetailProduct(id);
+    dispatch(getDetailProduct(id));
   }, []);
-
+  const detail = useSelector((state) => state);
+  const detailProduct = detail.Reducer.detail;
   return (
     <Row>
       <Col md={8}>
         <div>
           <img
-            src={detail?.image}
+            src={detailProduct?.image}
             alt=""
             style={{
               width: "100%",
@@ -27,22 +28,22 @@ const DetaiProduct = ({ getDetailProduct, detail }) => {
         </div>
       </Col>
       <Col md={16}>
-        <div className={styles.detail}>
+        <div className={styles.detailProduct}>
           <div>
-            <h3>{`title: ${detail?.title}`}</h3>
+            <h3>{`title: ${detailProduct?.title}`}</h3>
           </div>
           <div>
-            <span className={styles.price}>Price: {detail?.price}</span>
+            <span className={styles.price}>Price: {detailProduct?.price}</span>
           </div>
           <div>
-            <span>rate: {detail?.rating?.rate}</span>
+            <span>rate: {detailProduct?.rating?.rate}</span>
           </div>
           <div>
-            <span>count: {detail?.rating?.count}</span>
+            <span>count: {detailProduct?.rating?.count}</span>
           </div>
           <div>
             <span className={styles.description}>
-              description: {detail?.description}
+              description: {detailProduct?.description}
             </span>
           </div>
         </div>
@@ -50,14 +51,4 @@ const DetaiProduct = ({ getDetailProduct, detail }) => {
     </Row>
   );
 };
-
-DetaiProduct.propTypes = {
-  // getDetailProduct: PropTypes.array.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  detail: state.Reducer.detail,
-  getDetailProduct: PropTypes.func.isRequired,
-});
-
-export default connect(mapStateToProps, { getDetailProduct })(DetaiProduct);
+export default DetaiProduct;

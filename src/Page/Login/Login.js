@@ -1,26 +1,20 @@
 import { Button, Checkbox, Col, Form, Input, Row } from "antd";
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import styles from "../Login/Login.module.css";
 import { LoginUser } from "../../Store/Actions/Action";
 import { useNavigate } from "react-router-dom";
-const Login = ({ LoginUser, userLogin }) => {
+const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onFinish = (values) => {
     console.log("Success:", values);
-    LoginUser(values);
+    dispatch(LoginUser(values));
     navigate("/");
   };
-
-  console.log("🚀 ~ file: Login.js ~ line 9 ~ Login ~ userLogin", userLogin);
-  // const navigate = useNavigate();
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-  console.log(userLogin.token);
   return (
     <Row>
       <Col md={6}></Col>
@@ -97,11 +91,11 @@ const Login = ({ LoginUser, userLogin }) => {
   );
 };
 
-Login.propTypes = {};
+// Login.propTypes = {};
 
-const mapStateToProps = (state) => ({
-  userLogin: state.Reducer.userLogin,
-  LoginUser: PropTypes.func.isRequired,
-});
+// const mapStateToProps = (state) => ({
+//   userLogin: state.Reducer.userLogin,
+//   LoginUser: PropTypes.func.isRequired,
+// });
 
-export default connect(mapStateToProps, { LoginUser })(Login);
+export default Login;
