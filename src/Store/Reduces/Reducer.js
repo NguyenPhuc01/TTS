@@ -1,8 +1,9 @@
+import { USER_SIGNUP } from "../typeAuth";
+
 // import { GET_ALLPRODUCT, DELETE_PRODUCT, GET_DETAILPRODUCT } from "../Types";
 const inittialState = {
   allProduct: [],
   detail: {},
-  userLogin: {},
 };
 const Reducer = (state = inittialState, action) => {
   switch (action.type) {
@@ -43,11 +44,6 @@ const Reducer = (state = inittialState, action) => {
         allProduct: filterProduct,
       };
 
-    case "USER_LOGIN":
-      console.log("action", action.payload);
-      return {
-        userLogin: action.payload,
-      };
     default:
       return state;
   }

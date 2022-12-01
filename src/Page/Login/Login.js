@@ -1,9 +1,10 @@
 import { Button, Checkbox, Col, Form, Input, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styles from "../Login/Login.module.css";
-import { LoginUser } from "../../Store/Actions/Action";
 import { useNavigate } from "react-router-dom";
+import { LoginUser } from "../../Store/Actions/AuthAction";
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Login = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <Row>
       <Col md={6}></Col>
@@ -37,7 +39,7 @@ const Login = () => {
           >
             <Form.Item
               className={styles.userName}
-              label="Username"
+              label="username"
               name="username"
               rules={[
                 {

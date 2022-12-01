@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button, Form, Input, InputNumber, Modal } from "antd";
-const Modall = (props) => {
+const ModalAddProduct = (props) => {
   return (
     <div>
       <Modal
@@ -19,13 +19,6 @@ const Modall = (props) => {
           onFinishFailed={props.onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item
-            label="id"
-            name="id"
-            rules={[{ required: false, message: "Please input your id!" }]}
-          >
-            <Input />
-          </Form.Item>
           <Form.Item
             label="title"
             name="title"
@@ -94,4 +87,4 @@ const Modall = (props) => {
   );
 };
 
-export default Modall;
+export default ModalAddProduct;

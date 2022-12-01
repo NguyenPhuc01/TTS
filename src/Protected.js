@@ -5,7 +5,7 @@ import Login from "./Page/Login/Login";
 import { Outlet } from "react-router-dom";
 
 const Protected = () => {
-  const isLogin = useSelector((state) => state);
+  const test = useSelector((state) => state);
 
   const getToken = () => {
     localStorage.getItem("token");

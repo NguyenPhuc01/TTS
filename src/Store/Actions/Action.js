@@ -31,9 +31,7 @@ export const getDetailProduct = (id) => async (dispatch) => {
 };
 export const removeProduct = (id) => async (dispatch) => {
   try {
-     await axios.delete(
-      `https://fakestoreapi.com/products/${id}`
-    );
+    await axios.delete(`https://fakestoreapi.com/products/${id}`);
     dispatch({
       type: DELETE_PRODUCT,
       payload: id,
@@ -44,7 +42,7 @@ export const removeProduct = (id) => async (dispatch) => {
 };
 export const addProduct = (newProduct) => async (dispatch) => {
   try {
-    await axios.post("https://jsonplaceholder.typicode.com/todos", newProduct);
+    await axios.post("https://fakestoreapi.com/products", newProduct);
     dispatch({
       type: ADD_PRODUCT,
       payload: newProduct,
@@ -64,18 +62,4 @@ export const updateProduct = (id, content) => async (dispatch) => {
     console.log(error);
   }
 };
-export const LoginUser = (data) => async (dispatch) => {
-  try {
-    const response = await axios.post(
-      `https://fakestoreapi.com/auth/login`,
-      data
-    );
-    localStorage.setItem("token", response.data.token);
-    dispatch({
-      type: USER_LOGIN,
-      payload: response.data,
-    });
-  } catch (error) {
-    console.log({ error });
-  }
-};
+

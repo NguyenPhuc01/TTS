@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import Protected from "../src/Protected";
 import "./App.css";
 import DetaiProduct from "./Page/DetailProduct/DetaiProduct";
+import GetAllUser from "./Page/GetAllUser/GetAllUser";
 import Home from "./Page/Home/Home";
 import Login from "./Page/Login/Login";
 import Register from "./Page/Register/Register";
@@ -30,6 +31,7 @@ function App() {
           <Route path="/dangKy" element={<Register />}></Route>
 
           <Route element={<Protected />}>
+            <Route path="/getAllUser" element={<GetAllUser />}></Route>
             <Route path=":id" element={<DetaiProduct />}></Route>
             <Route path="/" element={<Home />}></Route>
           </Route>

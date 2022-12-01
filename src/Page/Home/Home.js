@@ -5,7 +5,6 @@ import CardLayout from "../../Component/Card/CardLayout";
 import styles from "../Home/Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getDetailProduct,
   getProduct,
   removeProduct,
   updateProduct,
@@ -13,28 +12,35 @@ import {
 import { Link } from "react-router-dom";
 const Home = () => {
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("");
-  const [id, setId] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState(0);
   const [search, setSearch] = useState("");
-
+  const [form] = Form.useForm();
   const product = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduct());
   }, []);
-  const handleChangeProduct = (id) => {
+  const handleChangeProduct = ({
+    id,
+    title,
+    category,
+    description,
+    price,
+    image,
+  }) => {
     console.log("change", id);
     setShow(true);
-    setId(id);
-    dispatch(getDetailProduct(id));
+    form.setFieldsValue({
+      id: id,
+      title: title,
+      category: category,
+      description: description,
+      image: image,
+      price: price,
+    });
   };
-  const handleDeteleProduct = (id) => {
+  const handleDeleteProduct = (id) => {
     console.log("delete", id);
-    removeProduct(id);
+    dispatch(removeProduct(id));
   };
 
   const handleOk = () => {
@@ -45,16 +51,10 @@ const Home = () => {
     setShow(false);
   };
   const onFinish = (newProduct) => {
-    console.log(id);
-    const data = {
-      id,
-      title,
-      description,
-      image,
-      price,
-      category,
-    };
-    updateProduct(id, data);
+    console.log("🚀 ~ file: Home.js:68 ~ onFinish ~ newProduct", newProduct);
+
+    dispatch(updateProduct(newProduct.id, newProduct));
+
     setShow(false);
   };
   const onFinishFailed = (errorInfo) => {
@@ -105,7 +105,14 @@ const Home = () => {
                       <div className={styles.btnfunc}>
                         <Button
                           onClick={() => {
-                            handleChangeProduct(e.id);
+                            handleChangeProduct({
+                              id: e.id,
+                              title: e.title,
+                              description: e.description,
+                              price: e.price,
+                              category: e.category,
+                              image: e.image,
+                            });
                           }}
                         >
                           Sửa
@@ -113,7 +120,7 @@ const Home = () => {
 
                         <Button
                           onClick={() => {
-                            handleDeteleProduct(e.id);
+                            handleDeleteProduct(e.id);
                           }}
                         >
                           xoá
@@ -131,6 +138,7 @@ const Home = () => {
               onCancel={handleCancel}
             >
               <Form
+                form={form}
                 name="basic"
                 labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
@@ -141,36 +149,26 @@ const Home = () => {
               >
                 <Form.Item
                   label="id"
-                  // name="id"
+                  name="id"
                   rules={[
                     { required: false, message: "Please input your id!" },
                   ]}
                 >
-                  <Input
-                    value={id}
-                    onChange={(e) => {
-                      setId(e.target.value);
-                    }}
-                  />
+                  <Input disabled />
                 </Form.Item>
                 <Form.Item
                   label="title"
-                  // name="title"
+                  name="title"
                   rules={[
                     { required: true, message: "Please input your title!" },
                   ]}
                 >
-                  <Input
-                    value={title}
-                    onChange={(e) => {
-                      setTitle(e.target.value);
-                    }}
-                  />
+                  <Input />
                 </Form.Item>
 
                 <Form.Item
                   label="description"
-                  // name="description"
+                  name="description"
                   rules={[
                     {
                       required: true,
@@ -178,16 +176,11 @@ const Home = () => {
                     },
                   ]}
                 >
-                  <Input
-                    value={description}
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }}
-                  />
+                  <Input />
                 </Form.Item>
                 <Form.Item
                   label="price"
-                  // name="price"
+                  name="price"
                   rules={[
                     {
                       required: true,
@@ -195,16 +188,11 @@ const Home = () => {
                     },
                   ]}
                 >
-                  <Input
-                    value={price}
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                    }}
-                  />
+                  <Input />
                 </Form.Item>
                 <Form.Item
                   label="image"
-                  // name="image"
+                  name="image"
                   rules={[
                     {
                       required: true,
@@ -212,16 +200,11 @@ const Home = () => {
                     },
                   ]}
                 >
-                  <Input
-                    value={image}
-                    onChange={(e) => {
-                      setImage(e.target.value);
-                    }}
-                  />
+                  <Input />
                 </Form.Item>
                 <Form.Item
                   label="category"
-                  // name="category"
+                  name="category"
                   rules={[
                     {
                       required: true,
@@ -229,12 +212,7 @@ const Home = () => {
                     },
                   ]}
                 >
-                  <Input
-                    value={category}
-                    onChange={(e) => {
-                      setCategory(e.target.value);
-                    }}
-                  />
+                  <Input />
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -250,17 +228,5 @@ const Home = () => {
     </div>
   );
 };
-
-// Home.propTypes = {
-//   // product: PropTypes.array.isRequired,
-// };
-
-// const mapStateToProps = (state) => ({
-//   getProduct: PropTypes.func.isRequired,
-//   removeProduct: PropTypes.func.isRequired,
-//   updateProduct: PropTypes.func.isRequired,
-//   getDetailProduct: PropTypes.func.isRequired,
-//   detail: state.Reducer.detail,
-// });
 
 export default Home;

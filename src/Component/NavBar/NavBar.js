@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import styles from "../NavBar/NavBar.module.css";
 import { DownOutlined } from "@ant-design/icons";
 import DropDown from "../../ultill/DropDown";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { addProduct } from "../../Store/Actions/Action";
-import Modall from "../../ultill/Modall";
-import { useNavigate } from "react-router-dom";
-const NavBar = (props, { addProduct }) => {
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import ModalAddProduct from "../../ultill/ModalAddProduct";
+const NavBar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
   // const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -30,7 +30,7 @@ const NavBar = (props, { addProduct }) => {
       ...newProduct,
       id: Math.floor(Math.random() * 10000),
     };
-    addProduct(data);
+    dispatch(addProduct(data));
     setIsModalOpen(false);
   };
 
@@ -44,9 +44,16 @@ const NavBar = (props, { addProduct }) => {
   return (
     <Row className={styles.navbar}>
       <Col md={4}>
-        <div>
+        <div className="">
           <div>
-            <h1 className={styles.Name}>MOVEA</h1>
+            <h1
+              className={styles.Name}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              MOVEA
+            </h1>
           </div>
         </div>
       </Col>
@@ -61,7 +68,7 @@ const NavBar = (props, { addProduct }) => {
             >
               ADD PRODUCT
             </Button>
-            <Modall
+            <ModalAddProduct
               isModalOpen={isModalOpen}
               handleOk={handleOk}
               handleCancel={handleCancel}
@@ -73,6 +80,10 @@ const NavBar = (props, { addProduct }) => {
 
           <div className={styles.search}>
             <input type="text" value={props.search} onChange={props.onChange} />
+          </div>
+
+          <div>
+            <Link to={"/getAllUser"}>getUser</Link>
           </div>
         </div>
       </Col>
@@ -102,10 +113,4 @@ const NavBar = (props, { addProduct }) => {
   );
 };
 
-NavBar.propTypes = {
-  addProduct: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({});
-
-export default connect(mapStateToProps, { addProduct })(NavBar);
+export default NavBar;
