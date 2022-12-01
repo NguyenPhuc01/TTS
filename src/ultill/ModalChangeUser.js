@@ -2,23 +2,33 @@ import { Button, Form, Input, Modal } from "antd";
 import React from "react";
 
 const ModalChangeUser = (props) => {
+  const [form] = Form.useForm();
+
   return (
     <div>
       <Modal
         title="Basic Modal"
-        open={props.isModalOpen}
+        open={props.isOpenModalChange}
         onOk={props.handleOk}
         onCancel={props.handleCancel}
       >
         <Form
+          form={props.form}
           name="basic"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 24 }}
           initialValues={{ remember: true }}
-          onFinish={props.onFinish}
+          onFinish={props.onChangeUser}
           onFinishFailed={props.onFinishFailed}
           autoComplete="off"
         >
+          <Form.Item
+            label="id"
+            name="id"
+            rules={[{ required: false, message: "Please input your id!" }]}
+          >
+            <Input disabled />
+          </Form.Item>
           <Form.Item
             label="Username"
             name="username"

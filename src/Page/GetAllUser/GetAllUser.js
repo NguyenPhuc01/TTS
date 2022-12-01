@@ -31,9 +31,6 @@ const GetAllUser = () => {
     setIsModalOpen(false);
     setIsOpenModalChange(false);
   };
-  //   const handleBtnOk = () => {
-  //     setIsOpenModalChange(false);
-  //   };
   const onFinish = (values) => {
     console.log("Success:", values);
     const data = {
@@ -130,70 +127,15 @@ const GetAllUser = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         />
-        <Modal
-          title="Basic Modal"
-          open={isOpenModalChange}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <Form
-            form={form}
-            name="basic"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 24 }}
-            initialValues={{ remember: true }}
-            onFinish={onChangeUser}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-          >
-            <Form.Item
-              label="id"
-              name="id"
-              rules={[{ required: false, message: "Please input your id!" }]}
-            >
-              <Input disabled />
-            </Form.Item>
-            <Form.Item
-              label="Username"
-              name="username"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
 
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                { required: true, message: "Please input your password!" },
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
-            <Form.Item
-              label="email"
-              name="email"
-              rules={[{ required: true, message: "Please input your email!" }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="phone"
-              name="phone"
-              rules={[{ required: true, message: "Please input your phone!" }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                change
-              </Button>
-            </Form.Item>
-          </Form>
-        </Modal>
+        <ModalChangeUser
+          isOpenModalChange={isOpenModalChange}
+          form={form}
+          handleCancel={handleCancel}
+          handleOk={handleOk}
+          onChangeUser={onChangeUser}
+          onFinishFailed={onFinishFailed}
+        />
       </Col>
     </Row>
   );
