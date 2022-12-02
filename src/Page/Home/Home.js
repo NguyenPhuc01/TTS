@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Input, Modal, Row } from "antd";
+import { Button, Col, Row } from "antd";
 import NavBar from "../../Component/NavBar/NavBar";
 import CardLayout from "../../Component/Card/CardLayout";
 import styles from "../Home/Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProduct,
-  removeProduct,
-} from "../../Store/Actions/Action";
+import { getProduct, removeProduct } from "../../Store/Actions/Action";
 import { Link } from "react-router-dom";
 import ModalChangeProduct from "../../ultill/ModalChangeProduct";
 const Home = () => {
@@ -18,7 +15,7 @@ const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduct());
-  }, []);
+  }, [dispatch]);
 
   const handleChangeProduct = ({
     id,
@@ -56,7 +53,6 @@ const Home = () => {
     var result = convertToArray.map(function (val) {
       return val.replace(val.charAt(0), val.charAt(0).toUpperCase());
     });
-
     return result.join(" ");
   }
   useEffect(() => {

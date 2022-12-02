@@ -15,7 +15,7 @@ const GetAllUser = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUser());
-  }, []);
+  }, [dispatch]);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -89,7 +89,6 @@ const GetAllUser = () => {
             showModalAddUser={isModalOpen}
             setIsModalOpen={setIsModalOpen}
           />
-
           <ModalChangeUser
             showModal={isOpenModalChange}
             setShowModalUser={setIsOpenModalChange}

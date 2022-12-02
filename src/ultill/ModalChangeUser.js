@@ -1,11 +1,10 @@
 import { Button, Form, Input, Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../Store/Actions/AuthAction";
 
 const ModalChangeUser = ({ dataUSer, setShowModalUser, showModal }) => {
   const [form] = Form.useForm();
-
   const dispatch = useDispatch();
   const handleOk = () => {
     setShowModalUser(false);
@@ -21,7 +20,7 @@ const ModalChangeUser = ({ dataUSer, setShowModalUser, showModal }) => {
       password: dataUSer.password,
       phone: dataUSer.phone,
     });
-  }, [showModal]);
+  }, [dataUSer,form]);
   const onFinish = (values) => {
     console.log("Success:", values);
     dispatch(updateUser(values.id, values));

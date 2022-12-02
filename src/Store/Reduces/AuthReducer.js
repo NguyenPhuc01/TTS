@@ -1,4 +1,4 @@
-import {} from "../typeAuth";
+import {} from "../Type/typeAuth";
 const initialState = {
   allUser: [],
   userLogin: {},

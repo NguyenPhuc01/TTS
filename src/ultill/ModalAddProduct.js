@@ -1,22 +1,43 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Button, Form, Input, InputNumber, Modal } from "antd";
-const ModalAddProduct = (props) => {
+import { useDispatch } from "react-redux";
+import { addProduct } from "../Store/Actions/Action";
+const ModalAddProduct = ({ isModalOpen, setIsModalOpen }) => {
+  const dispatch = useDispatch();
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    const data = {
+      ...values,
+      id: Math.floor(Math.random() * 10000),
+    };
+    dispatch(addProduct(data));
+    setIsModalOpen(false);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div>
       <Modal
         title="Basic Modal"
-        open={props.isModalOpen}
-        onOk={props.handleOk}
-        onCancel={props.handleCancel}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
         <Form
           name="basic"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
-          onFinish={props.onFinish}
-          onFinishFailed={props.onFinishFailed}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
@@ -78,7 +99,7 @@ const ModalAddProduct = (props) => {
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="danger" htmlType="submit">
-              {props.name}
+              add product
             </Button>
           </Form.Item>
         </Form>

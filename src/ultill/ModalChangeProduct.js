@@ -1,8 +1,7 @@
 import { Button, Form, Input, Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateProduct } from "../Store/Actions/Action";
-import { addUser, updateUser } from "../Store/Actions/AuthAction";
 const ModalChangeProduct = ({ show, setShow, data }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -18,10 +17,8 @@ const ModalChangeProduct = ({ show, setShow, data }) => {
       image: data.image,
       price: data.price,
     });
-  }, []);
-  // useEffect(() => {
-  //   setShow(props.show);
-  // }, [props]);
+  }, [data,form]);
+
   const onFinish = (values) => {
     console.log("Success:", values);
     dispatch(updateProduct(values.id, values));

@@ -3,39 +3,14 @@ import React, { useState } from "react";
 import styles from "../NavBar/NavBar.module.css";
 import { DownOutlined } from "@ant-design/icons";
 import DropDown from "../../ultill/DropDown";
-import { addProduct } from "../../Store/Actions/Action";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import ModalAddProduct from "../../ultill/ModalAddProduct";
 const NavBar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
-  // const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-
   const handleAddProduct = () => {
     setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const onFinish = (newProduct) => {
-    const data = {
-      ...newProduct,
-      id: Math.floor(Math.random() * 10000),
-    };
-    dispatch(addProduct(data));
-    setIsModalOpen(false);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
   const handleLogOut = () => {
     localStorage.clear();
@@ -70,11 +45,7 @@ const NavBar = (props) => {
             </Button>
             <ModalAddProduct
               isModalOpen={isModalOpen}
-              handleOk={handleOk}
-              handleCancel={handleCancel}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              name="ADD PRODUCT"
+              setIsModalOpen={setIsModalOpen}
             />
           </div>
 
@@ -99,7 +70,7 @@ const NavBar = (props) => {
                 <Dropdown overlay={DropDown}>
                   <a onClick={(e) => e.preventDefault()}>
                     <Space style={{ color: "#fff" }}>
-                      Đăng ký / Đăng Nhập
+                      Register / Login
                       <DownOutlined />
                     </Space>
                   </a>

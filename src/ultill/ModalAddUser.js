@@ -1,18 +1,16 @@
 import { Button, Form, Input, Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Store/Actions/AuthAction";
 
-const ModalAddUser = (props) => {
-  const [isModalOpen, setIsModalOpen] = useState(props.showModalAddUser);
+const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-
   const handleOk = () => {
-    props.setIsModalOpen(false);
+    setIsModalOpen(false);
   };
   const handleCancel = () => {
-    props.setIsModalOpen(false);
+    setIsModalOpen(false);
   };
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -21,11 +19,9 @@ const ModalAddUser = (props) => {
       ...values,
     };
     dispatch(addUser(data));
-    props.setIsModalOpen(!isModalOpen);
+    setIsModalOpen(!showModalAddUser);
   };
-  useEffect(() => {
-    setIsModalOpen(props.showModalAddUser);
-  }, [props]);
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -33,7 +29,7 @@ const ModalAddUser = (props) => {
     <div>
       <Modal
         title="Basic Modal"
-        open={isModalOpen}
+        open={showModalAddUser}
         onOk={handleOk}
         onCancel={handleCancel}
       >

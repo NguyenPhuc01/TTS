@@ -6,7 +6,7 @@ import {
   UPDATE_USER,
   USER_LOGIN,
   USER_SIGNUP,
-} from "../typeAuth";
+} from "../Type/typeAuth";
 
 const baseUrl = "https://fakestoreapi.com";
 export const LoginUser = (data) => async (dispatch) => {
@@ -48,11 +48,11 @@ export const getAllUser = () => async (dispatch) => {
 };
 export const removeUser = (id) => async (dispatch) => {
   try {
-    const response = await axios.delete(`${baseUrl}/users/${id}`);
+    await axios.delete(`${baseUrl}/users/${id}`);
     // console.log();
     dispatch({
       type: REMOVE_USER,
-      payload: id
+      payload: id,
     });
   } catch (error) {
     console.log({ error });
@@ -60,7 +60,7 @@ export const removeUser = (id) => async (dispatch) => {
 };
 export const addUser = (newUser) => async (dispatch) => {
   try {
-    const response = await axios.post(`${baseUrl}/users`, newUser);
+    await axios.post(`${baseUrl}/users`, newUser);
     // console.log();
     dispatch({
       type: ADD_USER,
@@ -70,9 +70,9 @@ export const addUser = (newUser) => async (dispatch) => {
     console.log({ error });
   }
 };
-export const updateUser = (id,newUser) => async (dispatch) => {
+export const updateUser = (id, newUser) => async (dispatch) => {
   try {
-    const response = await axios.put(`${baseUrl}/users/${id}`, newUser);
+    await axios.put(`${baseUrl}/users/${id}`, newUser);
     // console.log();
     dispatch({
       type: UPDATE_USER,

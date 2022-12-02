@@ -1,6 +1,3 @@
-import { USER_SIGNUP } from "../typeAuth";
-
-// import { GET_ALLPRODUCT, DELETE_PRODUCT, GET_DETAILPRODUCT } from "../Types";
 const inittialState = {
   allProduct: [],
   detail: {},
