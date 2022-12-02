@@ -7,6 +7,7 @@ import Home from "./Page/Home/Home";
 import Login from "./Page/Login/Login";
 import Register from "./Page/Register/Register";
 import User from "../src/Page/User/User";
+import TableUser from "./Page/TableUser/TableUser";
 function App() {
   return (
     // <div className="App">
@@ -30,7 +31,7 @@ function App() {
           <Route path="/dangKy" element={<Register />}></Route>
 
           <Route element={<Protected />}>
-            <Route path="/getAllUser" element={<User />}></Route>
+            <Route path="/getAllUser" element={<TableUser />}></Route>
             <Route path=":id" element={<DetaiProduct />}></Route>
             <Route path="/" element={<Home />}></Route>
           </Route>

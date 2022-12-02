@@ -3,11 +3,12 @@ const initialState = {
   allUser: [],
   userLogin: {},
   userRegister: {},
+  token: "",
 };
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case "USER_LOGIN":
-      console.log("action", action.payload);
+      console.log("action login", action.payload);
       return {
         userLogin: action.payload,
       };
@@ -34,19 +35,12 @@ const AuthReducer = (state = initialState, action) => {
       };
     case "UPDATE_USER":
       console.log("action changeUser", action.payload);
-      let filterUser = [...state.allUser].map((e) => {
-        var findUserId;
-        if (e.id === action.payload.id) {
-          findUserId = action.payload;
-          return findUserId;
-        } else {
-          return e;
-        }
-      });
-
+      let newUsers = [...state.allUser].map((user) =>
+        user.id === action.payload.id ? action.payload : user
+      );
       return {
         ...state,
-        allUser: filterUser,
+        allUser: newUsers,
       };
     default:
       return state;

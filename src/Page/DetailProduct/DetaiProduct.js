@@ -10,9 +10,8 @@ const DetaiProduct = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getDetailProduct(id));
-  }, []);
-  const detail = useSelector((state) => state);
-  const detailProduct = detail.Reducer.detail;
+  }, [dispatch, id]);
+  const detailProduct = useSelector((state) => state.productReducer.detail);
   return (
     <div>
       <NavBar />

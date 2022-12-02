@@ -11,7 +11,6 @@ const GetAllUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenModalChange, setIsOpenModalChange] = useState(false);
   const [dataUser, setDataUser] = useState({});
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUser());
@@ -19,14 +18,10 @@ const GetAllUser = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-
-  const user = useSelector((state) => state);
-  const allUser = user?.AuthReducer?.allUser;
-
+  const listUser = useSelector((state) => state.authReducer.allUser);
   const handleRemoveUser = (id) => {
     dispatch(removeUser(id));
   };
-
   const handleChangeUser = ({ id, password, phone, username, email }) => {
     console.log({ id, password, phone, username });
     setDataUser({
@@ -38,7 +33,6 @@ const GetAllUser = () => {
     });
     setIsOpenModalChange(true);
   };
-
   return (
     <div>
       <NavBar />
@@ -48,7 +42,7 @@ const GetAllUser = () => {
             add User
           </Button>
           <div className={styles.user}>
-            {allUser?.map((e) => {
+            {listUser?.map((e) => {
               return (
                 <div key={e.id}>
                   <CardAuth

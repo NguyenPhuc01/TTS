@@ -10,13 +10,12 @@ import ModalChangeProduct from "./ModalChangeProduct";
 const Home = () => {
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
-  const product = useSelector((state) => state);
   const [dataProduct, setDataProduct] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
-
+  const listProduct = useSelector((state) => state.productReducer.allProduct);
   const handleChangeProduct = ({
     id,
     title,
@@ -70,8 +69,8 @@ const Home = () => {
       <Row>
         <Col md={24}>
           <div className={styles.card}>
-            {product.Reducer.allProduct &&
-              product.Reducer.allProduct
+            {listProduct &&
+              listProduct
                 ?.filter((val) => {
                   if (search === "") {
                     return val;

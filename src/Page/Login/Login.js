@@ -1,6 +1,6 @@
 import { Button, Checkbox, Col, Form, Input, Row } from "antd";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../Login/Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../../Store/Actions/AuthAction";
@@ -16,7 +16,7 @@ const Login = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
+  // console.log("🚀 ~ file: Login.js:20 ~ Login ~ test", test);
   return (
     <Row>
       <Col md={6}></Col>

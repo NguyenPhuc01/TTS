@@ -25,19 +25,12 @@ const Reducer = (state = inittialState, action) => {
         allProduct: [...state.allProduct, action.payload],
       };
     case "UPDATE_PRODUCT":
-      let filterProduct = [...state.allProduct].map((e) => {
-        var productId;
-        if (e.id === action.payload.id) {
-          productId = action.payload;
-          return productId;
-        } else {
-          return e;
-        }
-      });
-
+      let newProducts = [...state.allProduct].map((product) =>
+        product.id === action.payload.id ? action.payload : product
+      );
       return {
         ...state,
-        allProduct: filterProduct,
+        allProduct: newProducts,
       };
 
     default:
