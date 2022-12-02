@@ -3,50 +3,40 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../Store/Actions/AuthAction";
 
-const ModalChangeUser = (props) => {
+const ModalChangeUser = ({ dataUSer, setShowModalUser, showModal }) => {
   const [form] = Form.useForm();
-  const [show, setShow] = useState(props.showModal);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const handleOk = () => {
-    setShow(false);
+    setShowModalUser(false);
   };
   const handleCancel = () => {
-    setShow(false);
+    setShowModalUser(false);
   };
   useEffect(() => {
     form.setFieldsValue({
-      id: props.dataUSer.id,
-      username: props.dataUSer.username,
-      email: props.dataUSer.email,
-      password: props.dataUSer.password,
-      phone: props.dataUSer.phone,
+      id: dataUSer.id,
+      username: dataUSer.username,
+      email: dataUSer.email,
+      password: dataUSer.password,
+      phone: dataUSer.phone,
     });
-  }, [show]);
-  // form.setFieldsValue({
-  //   id: props.dataUSer.id,
-  //   username: props.dataUSer.username,
-  //   email: props.dataUSer.email,
-  //   password: props.dataUSer.password,
-  //   phone: props.dataUSer.phone,
-  // });
+  }, [showModal]);
   const onFinish = (values) => {
     console.log("Success:", values);
     dispatch(updateUser(values.id, values));
-    props.setShowModalUser(false);
+    setShowModalUser(false);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  useEffect(() => {
-    setShow(props.showModal);
-  }, [props]);
+
   return (
     <div>
       <Modal
         forceRender
         title="Basic Modal"
-        open={show}
+        open={showModal}
         onOk={handleOk}
         onCancel={handleCancel}
       >

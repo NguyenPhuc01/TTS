@@ -1,14 +1,9 @@
-import { Button, Col, Form, Input, Modal, Row } from "antd";
+import { Button, Col, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardAuth from "../../Component/CardAuth/CardAuth";
 import NavBar from "../../Component/NavBar/NavBar";
-import {
-  addUser,
-  getAllUser,
-  removeUser,
-  updateUser,
-} from "../../Store/Actions/AuthAction";
+import { getAllUser, removeUser } from "../../Store/Actions/AuthAction";
 import ModalAddUser from "../../ultill/ModalAddUser";
 import ModalChangeUser from "../../ultill/ModalChangeUser";
 import styles from "../GetAllUser/GetAllUser.module.css";

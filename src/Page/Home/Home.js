@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getProduct,
   removeProduct,
-  updateProduct,
 } from "../../Store/Actions/Action";
 import { Link } from "react-router-dom";
 import ModalChangeProduct from "../../ultill/ModalChangeProduct";

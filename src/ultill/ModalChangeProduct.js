@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProduct } from "../Store/Actions/Action";
 import { addUser, updateUser } from "../Store/Actions/AuthAction";
-const ModalChangeProduct = (props) => {
-  const [show, setShow] = useState(false);
+const ModalChangeProduct = ({ show, setShow, data }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const handleOk = () => {
@@ -12,21 +11,21 @@ const ModalChangeProduct = (props) => {
   };
   useEffect(() => {
     form.setFieldsValue({
-      id: props.data.id,
-      title: props.data.title,
-      category: props.data.category,
-      description: props.data.description,
-      image: props.data.image,
-      price: props.data.price,
+      id: data.id,
+      title: data.title,
+      category: data.category,
+      description: data.description,
+      image: data.image,
+      price: data.price,
     });
   }, []);
-  useEffect(() => {
-    setShow(props.show);
-  }, [props]);
+  // useEffect(() => {
+  //   setShow(props.show);
+  // }, [props]);
   const onFinish = (values) => {
     console.log("Success:", values);
     dispatch(updateProduct(values.id, values));
-    props.setShow(false);
+    setShow(false);
   };
   const handleCancel = () => {
     setShow(false);
