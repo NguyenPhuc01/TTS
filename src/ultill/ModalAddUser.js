@@ -1,15 +1,41 @@
 import { Button, Form, Input, Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Store/Actions/AuthAction";
 
 const ModalAddUser = (props) => {
+  const [isModalOpen, setIsModalOpen] = useState(props.showModalAddUser);
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+
+  const handleOk = () => {
+    props.setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    props.setIsModalOpen(false);
+  };
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    const data = {
+      id: Math.floor(Math.random() * 10) * 25,
+      ...values,
+    };
+    dispatch(addUser(data));
+    props.setIsModalOpen(!isModalOpen);
+  };
+  useEffect(() => {
+    setIsModalOpen(props.showModalAddUser);
+  }, [props]);
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div>
       <Modal
         title="Basic Modal"
-        open={props.isModalOpen}
-        onOk={props.handleOk}
-        onCancel={props.handleCancel}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
         <Form
           form={form}
@@ -17,8 +43,8 @@ const ModalAddUser = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 24 }}
           initialValues={{ remember: true }}
-          onFinish={props.onFinish}
-          onFinishFailed={props.onFinishFailed}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item

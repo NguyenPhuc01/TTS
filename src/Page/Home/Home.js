@@ -14,12 +14,13 @@ import ModalChangeProduct from "../../ultill/ModalChangeProduct";
 const Home = () => {
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
-  const [form] = Form.useForm();
   const product = useSelector((state) => state);
+  const [dataProduct, setDataProduct] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduct());
   }, []);
+
   const handleChangeProduct = ({
     id,
     title,
@@ -28,35 +29,27 @@ const Home = () => {
     price,
     image,
   }) => {
-    console.log("change", id);
-    setShow(true);
-    form.setFieldsValue({
-      id: id,
-      title: title,
-      category: category,
-      description: description,
-      image: image,
-      price: price,
+    console.log("change", {
+      id,
+      title,
+      category,
+      description,
+      price,
+      image,
     });
+    setDataProduct({
+      id,
+      title,
+      category,
+      description,
+      price,
+      image,
+    });
+    setShow(true);
   };
   const handleDeleteProduct = (id) => {
     console.log("delete", id);
     dispatch(removeProduct(id));
-  };
-
-  const handleOk = () => {
-    setShow(false);
-  };
-
-  const handleCancel = () => {
-    setShow(false);
-  };
-  const onFinish = (newProduct) => {
-    console.log("🚀 ~ file: Home.js:68 ~ onFinish ~ newProduct", newProduct);
-
-    dispatch(updateProduct(newProduct.id, newProduct));
-
-    setShow(false);
   };
 
   function titleCase(str) {
@@ -130,14 +123,13 @@ const Home = () => {
                 })}
           </div>
           <div>
-            <ModalChangeProduct
-              show={show}
-              handleOk={handleOk}
-              handleCancel={handleCancel}
-              form={form}
-              onFinish={onFinish}
-              onFinishFailed
-            />
+            {show && (
+              <ModalChangeProduct
+                show={show}
+                setShow={setShow}
+                data={dataProduct}
+              />
+            )}
           </div>
         </Col>
       </Row>

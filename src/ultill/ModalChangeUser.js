@@ -1,25 +1,63 @@
 import { Button, Form, Input, Modal } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../Store/Actions/AuthAction";
 
 const ModalChangeUser = (props) => {
   const [form] = Form.useForm();
+  const [show, setShow] = useState(props.showModal);
+  const dispatch = useDispatch();
 
+  const handleOk = () => {
+    setShow(false);
+  };
+  const handleCancel = () => {
+    setShow(false);
+  };
+  useEffect(() => {
+    form.setFieldsValue({
+      id: props.dataUSer.id,
+      username: props.dataUSer.username,
+      email: props.dataUSer.email,
+      password: props.dataUSer.password,
+      phone: props.dataUSer.phone,
+    });
+  }, [show]);
+  // form.setFieldsValue({
+  //   id: props.dataUSer.id,
+  //   username: props.dataUSer.username,
+  //   email: props.dataUSer.email,
+  //   password: props.dataUSer.password,
+  //   phone: props.dataUSer.phone,
+  // });
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    dispatch(updateUser(values.id, values));
+    props.setShowModalUser(false);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+  useEffect(() => {
+    setShow(props.showModal);
+  }, [props]);
   return (
     <div>
       <Modal
+        forceRender
         title="Basic Modal"
-        open={props.isOpenModalChange}
-        onOk={props.handleOk}
-        onCancel={props.handleCancel}
+        open={show}
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
         <Form
-          form={props.form}
+          form={form}
           name="basic"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 24 }}
           initialValues={{ remember: true }}
-          onFinish={props.onChangeUser}
-          onFinishFailed={props.onFinishFailed}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
