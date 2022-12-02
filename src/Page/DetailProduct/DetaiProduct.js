@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../DetailProduct/DetailProduct.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetailProduct } from "../../Store/Actions/Action";
 import NavBar from "../../Component/NavBar/NavBar";
+import { getDetailProduct } from "../../Store/Actions/ProductAction";
 const DetaiProduct = () => {
   let { id } = useParams();
   const dispatch = useDispatch();

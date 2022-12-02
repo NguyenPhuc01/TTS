@@ -4,7 +4,7 @@ import styles from "../NavBar/NavBar.module.css";
 import { DownOutlined } from "@ant-design/icons";
 import DropDown from "../../ultill/DropDown";
 import { Link, useNavigate } from "react-router-dom";
-import ModalAddProduct from "../../ultill/ModalAddProduct";
+import ModalAddProduct from "./ModalAddProduct";
 const NavBar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();

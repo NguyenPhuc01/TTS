@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import CardAuth from "../../Component/CardAuth/CardAuth";
 import NavBar from "../../Component/NavBar/NavBar";
 import { getAllUser, removeUser } from "../../Store/Actions/AuthAction";
-import ModalAddUser from "../../ultill/ModalAddUser";
-import ModalChangeUser from "../../ultill/ModalChangeUser";
-import styles from "../GetAllUser/GetAllUser.module.css";
+import styles from "../User/User.module.css";
+import ModalAddUser from "./ModalAddUser";
+import ModalChangeUser from "./ModalChangeUser";
 const GetAllUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenModalChange, setIsOpenModalChange] = useState(false);

@@ -4,9 +4,9 @@ import NavBar from "../../Component/NavBar/NavBar";
 import CardLayout from "../../Component/Card/CardLayout";
 import styles from "../Home/Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct, removeProduct } from "../../Store/Actions/Action";
+import { getProduct, removeProduct } from "../../Store/Actions/ProductAction";
 import { Link } from "react-router-dom";
-import ModalChangeProduct from "../../ultill/ModalChangeProduct";
+import ModalChangeProduct from "./ModalChangeProduct";
 const Home = () => {
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");

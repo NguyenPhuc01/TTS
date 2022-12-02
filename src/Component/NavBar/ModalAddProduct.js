@@ -1,31 +1,24 @@
-import { Button, Form, Input, Modal } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
+import { Button, Form, Input, InputNumber, Modal } from "antd";
 import { useDispatch } from "react-redux";
-import { updateProduct } from "../Store/Actions/Action";
-const ModalChangeProduct = ({ show, setShow, data }) => {
-  const [form] = Form.useForm();
+import { addProduct } from "../../Store/Actions/ProductAction";
+const ModalAddProduct = ({ isModalOpen, setIsModalOpen }) => {
   const dispatch = useDispatch();
   const handleOk = () => {
-    setShow(false);
+    setIsModalOpen(false);
   };
-  useEffect(() => {
-    form.setFieldsValue({
-      id: data.id,
-      title: data.title,
-      category: data.category,
-      description: data.description,
-      image: data.image,
-      price: data.price,
-    });
-  }, [data,form]);
 
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const onFinish = (values) => {
     console.log("Success:", values);
-    dispatch(updateProduct(values.id, values));
-    setShow(false);
-  };
-  const handleCancel = () => {
-    setShow(false);
+    const data = {
+      ...values,
+      id: Math.floor(Math.random() * 10000),
+    };
+    dispatch(addProduct(data));
+    setIsModalOpen(false);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -33,15 +26,12 @@ const ModalChangeProduct = ({ show, setShow, data }) => {
   return (
     <div>
       <Modal
-        forceRender
-        getContainer={false}
         title="Basic Modal"
-        open={show}
+        open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <Form
-          form={form}
           name="basic"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 16 }}
@@ -50,13 +40,6 @@ const ModalChangeProduct = ({ show, setShow, data }) => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item
-            label="id"
-            name="id"
-            rules={[{ required: false, message: "Please input your id!" }]}
-          >
-            <Input disabled />
-          </Form.Item>
           <Form.Item
             label="title"
             name="title"
@@ -87,7 +70,7 @@ const ModalChangeProduct = ({ show, setShow, data }) => {
               },
             ]}
           >
-            <Input />
+            <InputNumber />
           </Form.Item>
           <Form.Item
             label="image"
@@ -116,7 +99,7 @@ const ModalChangeProduct = ({ show, setShow, data }) => {
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="danger" htmlType="submit">
-              Change Product
+              add product
             </Button>
           </Form.Item>
         </Form>
@@ -124,4 +107,5 @@ const ModalChangeProduct = ({ show, setShow, data }) => {
     </div>
   );
 };
-export default ModalChangeProduct;
+
+export default ModalAddProduct;

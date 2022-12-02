@@ -26,11 +26,10 @@ const Reducer = (state = inittialState, action) => {
       };
     case "UPDATE_PRODUCT":
       let filterProduct = [...state.allProduct].map((e) => {
-        var newObj;
+        var productId;
         if (e.id === action.payload.id) {
-          newObj = action.payload;
-          // console.log([...state.allProduct, newArr]);
-          return newObj;
+          productId = action.payload;
+          return productId;
         } else {
           return e;
         }

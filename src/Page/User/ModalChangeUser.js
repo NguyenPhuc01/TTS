@@ -1,35 +1,41 @@
 import { Button, Form, Input, Modal } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addUser } from "../Store/Actions/AuthAction";
+import { updateUser } from "../../Store/Actions/AuthAction";
 
-const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
-  const dispatch = useDispatch();
+const ModalChangeUser = ({ dataUSer, setShowModalUser, showModal }) => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   const handleOk = () => {
-    setIsModalOpen(false);
+    setShowModalUser(false);
   };
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setShowModalUser(false);
   };
+  useEffect(() => {
+    form.setFieldsValue({
+      id: dataUSer.id,
+      username: dataUSer.username,
+      email: dataUSer.email,
+      password: dataUSer.password,
+      phone: dataUSer.phone,
+    });
+  }, [dataUSer, form]);
   const onFinish = (values) => {
     console.log("Success:", values);
-    const data = {
-      id: Math.floor(Math.random() * 10) * 25,
-      ...values,
-    };
-    dispatch(addUser(data));
-    setIsModalOpen(!showModalAddUser);
+    dispatch(updateUser(values.id, values));
+    setShowModalUser(false);
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <div>
       <Modal
+        forceRender
         title="Basic Modal"
-        open={showModalAddUser}
+        open={showModal}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -43,6 +49,13 @@ const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+          <Form.Item
+            label="id"
+            name="id"
+            rules={[{ required: false, message: "Please input your id!" }]}
+          >
+            <Input disabled />
+          </Form.Item>
           <Form.Item
             label="Username"
             name="username"
@@ -75,7 +88,7 @@ const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
 
           <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              add
+              change
             </Button>
           </Form.Item>
         </Form>
@@ -84,4 +97,4 @@ const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
   );
 };
 
-export default ModalAddUser;
+export default ModalChangeUser;

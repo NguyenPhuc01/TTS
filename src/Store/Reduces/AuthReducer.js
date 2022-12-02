@@ -35,11 +35,10 @@ const AuthReducer = (state = initialState, action) => {
     case "UPDATE_USER":
       console.log("action changeUser", action.payload);
       let filterUser = [...state.allUser].map((e) => {
-        var newObjUer;
+        var findUserId;
         if (e.id === action.payload.id) {
-          newObjUer = action.payload;
-          // console.log([...state.allProduct, newArr]);
-          return newObjUer;
+          findUserId = action.payload;
+          return findUserId;
         } else {
           return e;
         }
