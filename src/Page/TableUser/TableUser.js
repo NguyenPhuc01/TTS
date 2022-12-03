@@ -1,31 +1,32 @@
-import { Button, Space, Table } from "antd";
+import { Button, Modal, Space, Table } from "antd";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUser, removeUser } from "../../Store/Actions/AuthAction";
 import ModalAddUser from "../User/ModalAddUser";
 import ModalChangeUser from "../User/ModalChangeUser";
+import ModalConfirm from "./ModalConfirm";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+const { confirm } = Modal;
 const TableUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectionType, setSelectionType] = useState("radio");
   const [isOpenModalChange, setIsOpenModalChange] = useState(false);
   const [dataUser, setDataUser] = useState({});
-  const [idUser, setIdUser] = useState();
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-      setDataUser(selectedRows);
-      setIdUser(`${selectedRowKeys}`);
-    },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === "Disabled User",
-      name: record.name,
-    }),
-  };
+
+  // const rowSelection = {
+  //   onChange: (selectedRowKeys, selectedRows) => {
+  //     console.log(
+  //       `selectedRowKeys: ${selectedRowKeys}`,
+  //       "selectedRows: ",
+  //       selectedRows
+  //     );
+  //   },
+  //   getCheckboxProps: (record) => ({
+  //     disabled: record.name === "Disabled User",
+  //     name: record.name,
+  //   }),
+  // };
+
   const columns = [
     {
       title: "username",
@@ -51,21 +52,42 @@ const TableUser = () => {
         <Space size="middle">
           <Button
             onClick={() => {
-              //   if (dataUser != {}) {
-              //     setIsOpenModalChange(true);
-              //   }
-              if (Array.isArray(dataUser) === true) {
-                setIsOpenModalChange(true);
-              }
+              setDataUser(record);
+
+              setIsOpenModalChange(true);
             }}
           >
             change
           </Button>
-          <Button onClick={handleDeleteUser}>Delete</Button>
+          <Button
+            onClick={() => {
+              // handleDeleteUser(record.id);
+              showDeleteConfirm(record.id);
+            }}
+          >
+            Delete
+          </Button>
         </Space>
       ),
     },
   ];
+
+  const showDeleteConfirm = (id) => {
+    confirm({
+      title: "Bạn có chắc chắn muốn xoá ??",
+      icon: <ExclamationCircleOutlined />,
+      content: "",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        dispatch(removeUser(id));
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -78,9 +100,9 @@ const TableUser = () => {
     setIsModalOpen(true);
   };
 
-  const handleDeleteUser = () => {
-    dispatch(removeUser(parseInt(idUser)));
-  };
+  // const handleDeleteUser = (id) => {
+  //   dispatch(removeUser(id));
+  // };
   return (
     <div>
       <Button style={{ margin: 20 }} onClick={showModal}>
@@ -89,10 +111,6 @@ const TableUser = () => {
 
       <div>
         <Table
-          rowSelection={{
-            type: selectionType,
-            ...rowSelection,
-          }}
           columns={columns}
           dataSource={listUser}
           rowKey={(record) => record.id}

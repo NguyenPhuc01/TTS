@@ -14,17 +14,13 @@ const ModalChangeUser = ({ dataUSer, setShowModalUser, showModal }) => {
   };
 
   useEffect(() => {
-    if (Array.isArray(dataUSer) === true) {
-      dataUSer.map((data) => {
-        form.setFieldsValue({
-          id: data.id,
-          username: data.username,
-          email: data.email,
-          password: data.password,
-          phone: data.phone,
-        });
-      });
-    }
+    form.setFieldsValue({
+      id: dataUSer.id,
+      username: dataUSer.username,
+      email: dataUSer.email,
+      password: dataUSer.password,
+      phone: dataUSer.phone,
+    });
   }, [dataUSer, form]);
   const onFinish = (values) => {
     console.log("Success:", values);
