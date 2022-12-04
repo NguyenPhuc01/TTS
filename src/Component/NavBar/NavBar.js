@@ -1,14 +1,20 @@
 import { Col, Dropdown, Row, Space, Button } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../NavBar/NavBar.module.css";
 import { DownOutlined } from "@ant-design/icons";
 import DropDown from "../../ultill/DropDown";
 import { Link, useNavigate } from "react-router-dom";
 import ModalAddProduct from "./ModalAddProduct";
+import { useSelector } from "react-redux";
 const NavBar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(
+    useSelector((state) => state.authReducer.userLogin)
+  );
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, [useSelector((state) => state.authReducer.userLogin)]);
   const handleAddProduct = () => {
     setIsModalOpen(true);
   };

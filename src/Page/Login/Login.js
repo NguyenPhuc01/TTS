@@ -10,13 +10,12 @@ const Login = () => {
   const dispatch = useDispatch();
   const onFinish = (values) => {
     console.log("Success:", values);
-    dispatch(LoginUser(values));
-    navigate("/");
+    dispatch(LoginUser(values, navigate));
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  // console.log("🚀 ~ file: Login.js:20 ~ Login ~ test", test);
+
   return (
     <Row>
       <Col md={6}></Col>
@@ -92,12 +91,5 @@ const Login = () => {
     </Row>
   );
 };
-
-// Login.propTypes = {};
-
-// const mapStateToProps = (state) => ({
-//   userLogin: state.Reducer.userLogin,
-//   LoginUser: PropTypes.func.isRequired,
-// });
 
 export default Login;

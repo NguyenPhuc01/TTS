@@ -1,14 +1,12 @@
 import {} from "../Type/typeAuth";
 const initialState = {
   allUser: [],
-  userLogin: {},
+  userLogin: localStorage.getItem("token"),
   userRegister: {},
-  token: "",
 };
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case "USER_LOGIN":
-      console.log("action login", action.payload);
       return {
         userLogin: action.payload,
       };
@@ -46,4 +44,19 @@ const AuthReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const getToken = (state = localStorage.getItem("token"), action) => {
+  switch (action.type) {
+    case "USER_LOGIN":
+      localStorage.setItem("token", action.payload);
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    default:
+      break;
+  }
+};
+
 export default AuthReducer;

@@ -1,0 +1,17 @@
+// const initialState = {
+//   token: "",
+// };
+// function SaveToken(state = initialState, action) {
+//   try {
+//     const token = localStorage.getItem("token");
+//     if (token === null) return undefined;
+
+//     console.log("day la token", token);
+//     return JSON.parse(token);
+//   } catch (e) {
+//     console.warn(e);
+//     return undefined;
+//   }
+// }
+
+// export default SaveToken;

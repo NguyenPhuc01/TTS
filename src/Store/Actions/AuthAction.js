@@ -9,15 +9,21 @@ import {
 } from "../Type/typeAuth";
 
 const baseUrl = "https://fakestoreapi.com";
-export const LoginUser = (data) => async (dispatch) => {
+export const LoginUser = (data, navigate) => async (dispatch) => {
   try {
     const response = await axios.post(`${baseUrl}/auth/login`, data);
-    // console.log();
+    console.log("token", response.data.token);
     localStorage.setItem("token", response.data.token);
+
     dispatch({
       type: USER_LOGIN,
       payload: response.data,
     });
+    setTimeout(() => {
+      console.log("dm dat ");
+      navigate("/");
+      // window.location='/'
+    }, 1000);
   } catch (error) {
     console.log({ error });
   }
@@ -25,7 +31,6 @@ export const LoginUser = (data) => async (dispatch) => {
 export const userRegister = (data) => async (dispatch) => {
   try {
     const response = await axios.post(`${baseUrl}/auth/signup`, data);
-    // console.log();
     dispatch({
       type: USER_SIGNUP,
       payload: response.data,
@@ -61,7 +66,6 @@ export const removeUser = (id) => async (dispatch) => {
 export const addUser = (newUser) => async (dispatch) => {
   try {
     await axios.post(`${baseUrl}/users`, newUser);
-    // console.log();
     dispatch({
       type: ADD_USER,
       payload: newUser,

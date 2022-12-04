@@ -5,27 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUser, removeUser } from "../../Store/Actions/AuthAction";
 import ModalAddUser from "../User/ModalAddUser";
 import ModalChangeUser from "../User/ModalChangeUser";
-import ModalConfirm from "./ModalConfirm";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 const { confirm } = Modal;
 const TableUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenModalChange, setIsOpenModalChange] = useState(false);
   const [dataUser, setDataUser] = useState({});
-
-  // const rowSelection = {
-  //   onChange: (selectedRowKeys, selectedRows) => {
-  //     console.log(
-  //       `selectedRowKeys: ${selectedRowKeys}`,
-  //       "selectedRows: ",
-  //       selectedRows
-  //     );
-  //   },
-  //   getCheckboxProps: (record) => ({
-  //     disabled: record.name === "Disabled User",
-  //     name: record.name,
-  //   }),
-  // };
 
   const columns = [
     {
@@ -47,7 +32,6 @@ const TableUser = () => {
     },
     {
       title: "action",
-      // dataIndex: "",
       render: (_, record) => (
         <Space size="middle">
           <Button
@@ -61,7 +45,6 @@ const TableUser = () => {
           </Button>
           <Button
             onClick={() => {
-              // handleDeleteUser(record.id);
               showDeleteConfirm(record.id);
             }}
           >
@@ -88,7 +71,6 @@ const TableUser = () => {
       },
     });
   };
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUser());
@@ -100,9 +82,6 @@ const TableUser = () => {
     setIsModalOpen(true);
   };
 
-  // const handleDeleteUser = (id) => {
-  //   dispatch(removeUser(id));
-  // };
   return (
     <div>
       <Button style={{ margin: 20 }} onClick={showModal}>
