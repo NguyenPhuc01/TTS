@@ -2,10 +2,10 @@ import { Button, Modal, Space, Table } from "antd";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUser, removeUser } from "../../Store/Actions/AuthAction";
 import ModalAddUser from "../User/ModalAddUser";
 import ModalChangeUser from "../User/ModalChangeUser";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { getAllUser, removeUser } from "../../Store/Actions/UserAction";
 const { confirm } = Modal;
 const TableUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,7 +76,7 @@ const TableUser = () => {
     dispatch(getAllUser());
   }, [dispatch]);
 
-  const listUser = useSelector((state) => state.authReducer.allUser);
+  const listUser = useSelector((state) => state.UserReducer.allUser);
 
   const showModal = () => {
     setIsModalOpen(true);

@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addUser } from "../../Store/Actions/AuthAction";
+import { addUser } from "../../Store/Actions/UserAction";
 
 const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
   const dispatch = useDispatch();
