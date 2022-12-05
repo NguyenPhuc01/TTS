@@ -1,33 +1,23 @@
 const inittialState = {
   allProduct: [],
   detail: {},
-  loading: true,
+  loading: false,
   error: {},
 };
 const Product = (state = inittialState, action) => {
   switch (action.type) {
     case "GET_ALLPRODUCT":
-      console.log("arr", Array.isArray(action.payload));
-      if (Array.isArray(action.payload)) {
-        return {
-          ...state,
-
-          allProduct: action.payload,
-          loading: false,
-        };
-      } else {
-        return {
-          ...state,
-          allProduct: null,
-          loading: false,
-          error: action.payload,
-        };
-      }
+      return {
+        ...state,
+        loading: false,
+        allProduct: action.payload,
+      };
     case "GET_DETAILPRODUCT":
       return {
         ...state,
         detail: action.payload,
       };
+
     case "DELETE_PRODUCT":
       return {
         ...state,
@@ -38,6 +28,24 @@ const Product = (state = inittialState, action) => {
         ...state,
         allProduct: [...state.allProduct, action.payload],
       };
+
+    case "GET_PRODUCT_REQUEST":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "GET_PRODUCT_FAIL":
+      return {
+        ...state,
+        loading: false,
+        allProduct: null,
+        error: action.payload,
+      };
+    // case "GET_PRODUCT_SUCCESS":
+    //   return {
+    //     ...state,
+    //     detail: action.payload,
+    //   };
     case "UPDATE_PRODUCT":
       let newProducts = [...state.allProduct].map((product) =>
         product.id === action.payload.id ? action.payload : product

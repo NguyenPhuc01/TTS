@@ -5,21 +5,28 @@ import {
   DELETE_PRODUCT,
   ADD_PRODUCT,
   UPDATE_PRODUCT,
+  GET_PRODUCT_FAIL,
+  GET_PRODUCT_REQUEST,
 } from "../Type/Product";
 export const getProduct = () => async (dispatch) => {
+  dispatch({
+    type: GET_PRODUCT_REQUEST,
+  });
   try {
-    const response = await axios.get("https://faksfdestoreapi.com/products");
+    const response = await axios.get("https://fakestoreapi.com/products");
+
     dispatch({
       type: GET_ALLPRODUCT,
       payload: response.data,
     });
   } catch (error) {
     dispatch({
-      type: GET_ALLPRODUCT,
+      type: GET_PRODUCT_FAIL,
       payload: error,
     });
   }
 };
+
 export const getDetailProduct = (id) => async (dispatch) => {
   try {
     const response = await axios.get(`https://fakestoreapi.com/products/${id}`);

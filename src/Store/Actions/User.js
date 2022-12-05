@@ -1,22 +1,29 @@
 import axios from "axios";
 import {
   ADD_USER,
-  GETALL_AUTH,
+  GETALL_USER,
+  GET_USER_FAIL,
+  GET_USER_REQUEST,
   REMOVE_USER,
   UPDATE_USER,
 } from "../Type/User";
 const baseUrl = "https://fakestoreapi.com";
 
 export const getAllUser = () => async (dispatch) => {
+  dispatch({
+    type: GET_USER_REQUEST,
+  });
   try {
     const response = await axios.get(`${baseUrl}/users`);
-    // console.log();
     dispatch({
-      type: GETALL_AUTH,
+      type: GETALL_USER,
       payload: response.data,
     });
   } catch (error) {
-    console.log({ error });
+    dispatch({
+      type: GET_USER_FAIL,
+      payload: error,
+    });
   }
 };
 export const removeUser = (id) => async (dispatch) => {

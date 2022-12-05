@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message, Spin } from "antd";
 import NavBar from "../../Component/NavBar/NavBar";
 import CardLayout from "../../Component/Card/CardLayout";
 import styles from "../Home/Home.module.css";
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct, removeProduct } from "../../Store/Actions/Product";
 import { Link } from "react-router-dom";
 import ModalChangeProduct from "./ModalChangeProduct";
-import Loading from "./Loading";
 const Home = () => {
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
@@ -21,7 +20,7 @@ const Home = () => {
   const err = useSelector((state) => state.Product.error);
   useEffect(() => {
     if (listProduct === null) {
-      alert(err.message);
+      message.warning(err.message);
     }
   }, [err.message, listProduct]);
   const handleShowModalProduct = ({
@@ -117,7 +116,7 @@ const Home = () => {
                 })
             ) : (
               <div className={styles.loading}>
-                <Loading type="spinningBubbles" color="red" />
+                <Spin size="large" />
               </div>
             )}
           </div>

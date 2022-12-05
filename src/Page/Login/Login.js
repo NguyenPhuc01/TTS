@@ -1,4 +1,4 @@
-import { Button, Checkbox, Col, Form, Input, Row } from "antd";
+import { Button, Checkbox, Col, Form, Input, Row, Spin } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../Login/Login.module.css";
@@ -8,6 +8,8 @@ import { loginUser } from "../../Store/Actions/Auth";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLoding = useSelector((state) => state.Auth.loading);
+  console.log("🚀 ~ file: Login.js:12 ~ Login ~ isLogin", isLoding);
   const onLogin = (values) => {
     console.log("Success:", values);
     dispatch(loginUser(values, navigate));
@@ -15,7 +17,6 @@ const Login = () => {
   const onLoginFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
   return (
     <Row>
       <Col md={6}></Col>
@@ -80,9 +81,13 @@ const Login = () => {
                 span: 16,
               }}
             >
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
+              {isLoding ? (
+                <Spin size="large" />
+              ) : (
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              )}
             </Form.Item>
           </Form>
         </div>

@@ -1,13 +1,27 @@
 const initialState = {
   allUser: [],
+  loading: false,
+  error: {},
 };
 
 const User = (state = initialState, action) => {
   switch (action.type) {
-    case "GETALL_AUTH":
+    case "GETALL_USER":
       return {
         ...state,
+        loading: false,
         allUser: action.payload,
+      };
+    case "GET_USER_REQUEST":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "GET_USER_FAIL":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
     case "ADD_USER":
       console.log("action addUser", action.payload);

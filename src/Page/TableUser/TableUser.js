@@ -1,4 +1,4 @@
-import { Button, Modal, Space, Table } from "antd";
+import { Button, message, Modal, Space, Spin, Table } from "antd";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -77,7 +77,14 @@ const TableUser = () => {
   }, [dispatch]);
 
   const listUser = useSelector((state) => state.User.allUser);
+  const isLoading = useSelector((state) => state.User.loading);
+  const error = useSelector((state) => state.User.error);
 
+  useEffect(() => {
+    if (error.message !== undefined) {
+      message.warning(error.message);
+    }
+  }, [error.message, listUser]);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -89,11 +96,25 @@ const TableUser = () => {
       </Button>
 
       <div>
-        <Table
-          columns={columns}
-          dataSource={listUser}
-          rowKey={(record) => record.id}
-        />
+        {isLoading ? (
+          <div
+            style={{
+              width: "100vw",
+              height: "80vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Spin size="large" />
+          </div>
+        ) : (
+          <Table
+            columns={columns}
+            dataSource={listUser}
+            rowKey={(record) => record.id}
+          />
+        )}
       </div>
       <ModalAddUser
         showModalAddUser={isModalOpen}
