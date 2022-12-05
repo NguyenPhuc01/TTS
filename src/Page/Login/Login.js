@@ -3,16 +3,16 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../Login/Login.module.css";
 import { useNavigate } from "react-router-dom";
-import { LoginUser } from "../../Store/Actions/AuthAction";
+import { loginUser } from "../../Store/Actions/Auth";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onFinish = (values) => {
+  const onLogin = (values) => {
     console.log("Success:", values);
-    dispatch(LoginUser(values, navigate));
+    dispatch(loginUser(values, navigate));
   };
-  const onFinishFailed = (errorInfo) => {
+  const onLoginFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
@@ -32,8 +32,8 @@ const Login = () => {
             initialValues={{
               remember: true,
             }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+            onFinish={onLogin}
+            onFinishFailed={onLoginFailed}
             autoComplete="off"
           >
             <Form.Item

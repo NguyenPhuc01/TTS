@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateProduct } from "../../Store/Actions/ProductAction";
+import { updateProduct } from "../../Store/Actions/Product";
 const ModalChangeProduct = ({ show, setShow, data }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();

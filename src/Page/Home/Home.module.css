@@ -13,3 +13,11 @@
   justify-content: space-around;
   margin-top: 15px;
 }
+.loading {
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh !important;
+}

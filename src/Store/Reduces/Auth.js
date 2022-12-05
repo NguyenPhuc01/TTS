@@ -2,7 +2,7 @@ const initialState = {
   userLogin: localStorage.getItem("token"),
   userRegister: {},
 };
-const AuthReducer = (state = initialState, action) => {
+const Auth = (state = initialState, action) => {
   switch (action.type) {
     case "USER_LOGIN":
       localStorage.setItem("token", action.payload.token);
@@ -20,4 +20,4 @@ const AuthReducer = (state = initialState, action) => {
   }
 };
 
-export default AuthReducer;
+export default Auth;

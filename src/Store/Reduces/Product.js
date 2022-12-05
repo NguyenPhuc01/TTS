@@ -1,14 +1,28 @@
 const inittialState = {
   allProduct: [],
   detail: {},
+  loading: true,
+  error: {},
 };
-const Reducer = (state = inittialState, action) => {
+const Product = (state = inittialState, action) => {
   switch (action.type) {
     case "GET_ALLPRODUCT":
-      return {
-        ...state,
-        allProduct: action.payload,
-      };
+      console.log("arr", Array.isArray(action.payload));
+      if (Array.isArray(action.payload)) {
+        return {
+          ...state,
+
+          allProduct: action.payload,
+          loading: false,
+        };
+      } else {
+        return {
+          ...state,
+          allProduct: null,
+          loading: false,
+          error: action.payload,
+        };
+      }
     case "GET_DETAILPRODUCT":
       return {
         ...state,
@@ -37,4 +51,4 @@ const Reducer = (state = inittialState, action) => {
       return state;
   }
 };
-export default Reducer;
+export default Product;

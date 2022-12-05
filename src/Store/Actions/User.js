@@ -4,7 +4,7 @@ import {
   GETALL_AUTH,
   REMOVE_USER,
   UPDATE_USER,
-} from "../Type/TypeUser";
+} from "../Type/User";
 const baseUrl = "https://fakestoreapi.com";
 
 export const getAllUser = () => async (dispatch) => {

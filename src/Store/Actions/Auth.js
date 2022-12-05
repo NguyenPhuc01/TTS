@@ -1,8 +1,8 @@
 import axios from "axios";
-import { USER_LOGIN, USER_SIGNUP } from "../Type/typeAuth";
+import { USER_LOGIN, USER_SIGNUP } from "../Type/Auth";
 
 const baseUrl = "https://fakestoreapi.com";
-export const LoginUser = (data, navigate) => async (dispatch) => {
+export const loginUser = (data, navigate) => async (dispatch) => {
   try {
     const response = await axios.post(`${baseUrl}/auth/login`, data);
     dispatch({

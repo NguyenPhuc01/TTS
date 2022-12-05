@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { userRegister } from "../../Store/Actions/AuthAction";
+import { userRegister } from "../../Store/Actions/Auth";
 import styles from "../Register/Register.module.css";
 
 const { Option } = Select;
@@ -54,7 +54,6 @@ const Register = () => {
   };
 
   useEffect(() => {
-    
     if (signup.Reducer.userRegister.status === true) {
       navigate("/dangNhap");
     }

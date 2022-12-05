@@ -5,17 +5,19 @@ import {
   DELETE_PRODUCT,
   ADD_PRODUCT,
   UPDATE_PRODUCT,
-  USER_LOGIN,
-} from "../Type/TypesProduct";
+} from "../Type/Product";
 export const getProduct = () => async (dispatch) => {
   try {
-    const response = await axios.get("https://fakestoreapi.com/products");
+    const response = await axios.get("https://faksfdestoreapi.com/products");
     dispatch({
       type: GET_ALLPRODUCT,
       payload: response.data,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: GET_ALLPRODUCT,
+      payload: error,
+    });
   }
 };
 export const getDetailProduct = (id) => async (dispatch) => {

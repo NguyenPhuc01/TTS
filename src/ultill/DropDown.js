@@ -1,7 +1,6 @@
 import { Menu } from "antd";
 import React from "react";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
-import { Button, Modal } from "antd";
+
 import { Link } from "react-router-dom";
 const DropDown = () => {
   return (

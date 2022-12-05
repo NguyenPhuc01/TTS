@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Input, InputNumber, Modal } from "antd";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../Store/Actions/ProductAction";
+import { addProduct } from "../../Store/Actions/Product";
 const ModalAddProduct = ({ isModalOpen, setIsModalOpen }) => {
   const dispatch = useDispatch();
   const handleOk = () => {

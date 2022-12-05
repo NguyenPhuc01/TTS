@@ -2,7 +2,7 @@ const initialState = {
   allUser: [],
 };
 
-const UserReducer = (state = initialState, action) => {
+const User = (state = initialState, action) => {
   switch (action.type) {
     case "GETALL_AUTH":
       return {
@@ -34,4 +34,4 @@ const UserReducer = (state = initialState, action) => {
       return state;
   }
 };
-export default UserReducer;
+export default User;

@@ -4,9 +4,10 @@ import NavBar from "../../Component/NavBar/NavBar";
 import CardLayout from "../../Component/Card/CardLayout";
 import styles from "../Home/Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct, removeProduct } from "../../Store/Actions/ProductAction";
+import { getProduct, removeProduct } from "../../Store/Actions/Product";
 import { Link } from "react-router-dom";
 import ModalChangeProduct from "./ModalChangeProduct";
+import Loading from "./Loading";
 const Home = () => {
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
@@ -15,8 +16,15 @@ const Home = () => {
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
-  const listProduct = useSelector((state) => state.productReducer.allProduct);
-  const handleChangeProduct = ({
+  const listProduct = useSelector((state) => state.Product.allProduct);
+  const isLoading = useSelector((state) => state.Product.loading);
+  const err = useSelector((state) => state.Product.error);
+  useEffect(() => {
+    if (listProduct === null) {
+      alert(err.message);
+    }
+  }, [err.message, listProduct]);
+  const handleShowModalProduct = ({
     id,
     title,
     category,
@@ -24,14 +32,6 @@ const Home = () => {
     price,
     image,
   }) => {
-    console.log("change", {
-      id,
-      title,
-      category,
-      description,
-      price,
-      image,
-    });
     setDataProduct({
       id,
       title,
@@ -69,7 +69,7 @@ const Home = () => {
       <Row>
         <Col md={24}>
           <div className={styles.card}>
-            {listProduct &&
+            {!isLoading ? (
               listProduct
                 ?.filter((val) => {
                   if (search === "") {
@@ -91,7 +91,7 @@ const Home = () => {
                       <div className={styles.btnfunc}>
                         <Button
                           onClick={() => {
-                            handleChangeProduct({
+                            handleShowModalProduct({
                               id: e.id,
                               title: e.title,
                               description: e.description,
@@ -114,8 +114,14 @@ const Home = () => {
                       </div>
                     </div>
                   );
-                })}
+                })
+            ) : (
+              <div className={styles.loading}>
+                <Loading type="spinningBubbles" color="red" />
+              </div>
+            )}
           </div>
+
           <div>
             {show && (
               <ModalChangeProduct

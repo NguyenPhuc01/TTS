@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 import styles from "../DetailProduct/DetailProduct.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../Component/NavBar/NavBar";
-import { getDetailProduct } from "../../Store/Actions/ProductAction";
-const DetaiProduct = () => {
+import { getDetailProduct } from "../../Store/Actions/Product";
+const DetailProduct = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getDetailProduct(id));
   }, [dispatch, id]);
-  const detailProduct = useSelector((state) => state.productReducer.detail);
+  const detailProduct = useSelector((state) => state.Product.detail);
   return (
     <div>
       <NavBar />
@@ -56,4 +56,4 @@ const DetaiProduct = () => {
     </div>
   );
 };
-export default DetaiProduct;
+export default DetailProduct;
