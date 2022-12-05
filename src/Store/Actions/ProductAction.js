@@ -6,7 +6,7 @@ import {
   ADD_PRODUCT,
   UPDATE_PRODUCT,
   USER_LOGIN,
-} from "../Type/Types";
+} from "../Type/TypesProduct";
 export const getProduct = () => async (dispatch) => {
   try {
     const response = await axios.get("https://fakestoreapi.com/products");
@@ -62,4 +62,3 @@ export const updateProduct = (id, content) => async (dispatch) => {
     console.log(error);
   }
 };
-
