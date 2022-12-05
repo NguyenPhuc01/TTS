@@ -1,4 +1,4 @@
-import { Button, message, Modal, Space, Spin, Table } from "antd";
+import { Button, message, Modal, notification, Space, Spin, Table } from "antd";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -82,7 +82,10 @@ const TableUser = () => {
 
   useEffect(() => {
     if (error.message !== undefined) {
-      message.warning(error.message);
+      notification.open({
+        message: "Notification",
+        description: error.message,
+      });
     }
   }, [error.message, listUser]);
   const showModal = () => {

@@ -1,14 +1,26 @@
-import { Button, Checkbox, Col, Form, Input, Row, Spin } from "antd";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Form,
+  Input,
+  notification,
+  Row,
+  Spin,
+} from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../Login/Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../Store/Actions/Auth";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoding = useSelector((state) => state.Auth.loading);
+  const error = useSelector((state) => state.Auth.error);
+  console.log("🚀 ~ file: Login.js:13 ~ Login ~ error", error);
   console.log("🚀 ~ file: Login.js:12 ~ Login ~ isLogin", isLoding);
   const onLogin = (values) => {
     console.log("Success:", values);
@@ -17,6 +29,15 @@ const Login = () => {
   const onLoginFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    if (error) {
+      notification.open({
+        message: "Notification",
+        description: error?.response?.data,
+      });
+    }
+  }, [error?.response?.data]);
   return (
     <Row>
       <Col md={6}></Col>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row, message, Spin } from "antd";
+import { Button, Col, Row, message, Spin, notification } from "antd";
 import NavBar from "../../Component/NavBar/NavBar";
 import CardLayout from "../../Component/Card/CardLayout";
 import styles from "../Home/Home.module.css";
@@ -17,12 +17,15 @@ const Home = () => {
   }, [dispatch]);
   const listProduct = useSelector((state) => state.Product.allProduct);
   const isLoading = useSelector((state) => state.Product.loading);
-  const err = useSelector((state) => state.Product.error);
+  const error = useSelector((state) => state.Product.error);
   useEffect(() => {
     if (listProduct === null) {
-      message.warning(err.message);
+      notification.open({
+        message: "Notification",
+        description: error.message,
+      });
     }
-  }, [err.message, listProduct]);
+  }, [error.message, listProduct]);
   const handleShowModalProduct = ({
     id,
     title,

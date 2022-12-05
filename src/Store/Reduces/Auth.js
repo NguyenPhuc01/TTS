@@ -23,7 +23,7 @@ const Auth = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        userLogin: action.payload,
+        error: action.payload,
       };
     case "USER_SIGNUP":
       return {
