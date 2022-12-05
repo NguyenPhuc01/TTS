@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../Store/Actions/User";
 
-const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
+const ModalAddUser = ({ setIsModalOpen, showModalAddUser, isLoginAddUser }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const handleOk = () => {
@@ -19,7 +19,9 @@ const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
       ...values,
     };
     dispatch(addUser(data));
-    setIsModalOpen(!showModalAddUser);
+    setTimeout(() => {
+      setIsModalOpen(!showModalAddUser);
+    }, 2000);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -74,7 +76,7 @@ const ModalAddUser = ({ setIsModalOpen, showModalAddUser }) => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isLoginAddUser}>
               add
             </Button>
           </Form.Item>

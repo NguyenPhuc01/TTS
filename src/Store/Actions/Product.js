@@ -7,6 +7,12 @@ import {
   UPDATE_PRODUCT,
   GET_PRODUCT_FAIL,
   GET_PRODUCT_REQUEST,
+  DELETE_PRODUCT_REQUEST,
+  POST_PRODUCT_REQUEST,
+  PUT_PRODUCT_FAIL,
+  DELETE_PRODUCT_FAIL,
+  POST_PRODUCT_FAIL,
+  PUT_PRODUCT_REQUEST,
 } from "../Type/Product";
 export const getProduct = () => async (dispatch) => {
   dispatch({
@@ -39,6 +45,9 @@ export const getDetailProduct = (id) => async (dispatch) => {
   }
 };
 export const removeProduct = (id) => async (dispatch) => {
+  dispatch({
+    type: DELETE_PRODUCT_REQUEST,
+  });
   try {
     await axios.delete(`https://fakestoreapi.com/products/${id}`);
     dispatch({
@@ -46,10 +55,16 @@ export const removeProduct = (id) => async (dispatch) => {
       payload: id,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: DELETE_PRODUCT_FAIL,
+      payload: error,
+    });
   }
 };
 export const addProduct = (newProduct) => async (dispatch) => {
+  dispatch({
+    type: POST_PRODUCT_REQUEST,
+  });
   try {
     await axios.post("https://fakestoreapi.com/products", newProduct);
     dispatch({
@@ -57,10 +72,16 @@ export const addProduct = (newProduct) => async (dispatch) => {
       payload: newProduct,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: POST_PRODUCT_FAIL,
+      payload: error,
+    });
   }
 };
 export const updateProduct = (id, content) => async (dispatch) => {
+  dispatch({
+    type: PUT_PRODUCT_REQUEST,
+  });
   try {
     await axios.put(`https://fakestoreapi.com/products/${id}`, content);
     dispatch({
@@ -68,6 +89,9 @@ export const updateProduct = (id, content) => async (dispatch) => {
       payload: content,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: PUT_PRODUCT_FAIL,
+      payload: error,
+    });
   }
 };

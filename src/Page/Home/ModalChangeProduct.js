@@ -1,8 +1,8 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, Spin } from "antd";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateProduct } from "../../Store/Actions/Product";
-const ModalChangeProduct = ({ show, setShow, data }) => {
+const ModalChangeProduct = ({ show, setShow, data, loading }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const handleOk = () => {
@@ -20,9 +20,10 @@ const ModalChangeProduct = ({ show, setShow, data }) => {
   }, [data, form]);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     dispatch(updateProduct(values.id, values));
-    setShow(false);
+    setTimeout(() => {
+      setShow(false);
+    }, 1000);
   };
   const handleCancel = () => {
     setShow(false);
@@ -115,8 +116,8 @@ const ModalChangeProduct = ({ show, setShow, data }) => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="danger" htmlType="submit">
-              Change Product
+            <Button type="danger" htmlType="submit" loading={loading}>
+              Update
             </Button>
           </Form.Item>
         </Form>

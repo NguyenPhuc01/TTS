@@ -16,7 +16,13 @@ const Home = () => {
     dispatch(getProduct());
   }, [dispatch]);
   const listProduct = useSelector((state) => state.Product.allProduct);
-  const isLoading = useSelector((state) => state.Product.loading);
+  const isLoadingProduct = useSelector((state) => state.Product.loadingProduct);
+  const isLoadingRemove = useSelector((state) => state.Product.loadingRemove);
+  const id = useSelector((state) => state.Product.id);
+  const [idProduct, setIdProduct] = useState();
+  console.log("🚀 ~ file: Home.js:22 ~ Home ~ id", id);
+  const isLoadingUpdate = useSelector((state) => state.Product.loadingUpdate);
+
   const error = useSelector((state) => state.Product.error);
   useEffect(() => {
     if (listProduct === null) {
@@ -46,6 +52,7 @@ const Home = () => {
   };
   const handleDeleteProduct = (id) => {
     console.log("delete", id);
+    setIdProduct(id);
     dispatch(removeProduct(id));
   };
 
@@ -71,7 +78,7 @@ const Home = () => {
       <Row>
         <Col md={24}>
           <div className={styles.card}>
-            {!isLoading ? (
+            {!isLoadingProduct ? (
               listProduct
                 ?.filter((val) => {
                   if (search === "") {
@@ -105,11 +112,12 @@ const Home = () => {
                         >
                           Sửa
                         </Button>
-
+                        {}
                         <Button
                           onClick={() => {
                             handleDeleteProduct(e.id);
                           }}
+                          loading={e.id === idProduct ? true : false}
                         >
                           xoá
                         </Button>
@@ -130,6 +138,7 @@ const Home = () => {
                 show={show}
                 setShow={setShow}
                 data={dataProduct}
+                loading={isLoadingUpdate}
               />
             )}
           </div>

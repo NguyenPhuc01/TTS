@@ -11,6 +11,7 @@ const NavBar = (props) => {
   const navigate = useNavigate();
 
   const token = useSelector((state) => state.Auth.userLogin);
+  const isLoading = useSelector((state) => state.Product.loadingAdd);
   const handleAddProduct = () => {
     setIsModalOpen(true);
   };
@@ -48,6 +49,7 @@ const NavBar = (props) => {
             <ModalAddProduct
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
+              isLoading={isLoading}
             />
           </div>
 

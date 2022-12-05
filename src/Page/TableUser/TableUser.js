@@ -1,4 +1,4 @@
-import { Button, message, Modal, notification, Space, Spin, Table } from "antd";
+import { Button, Modal, notification, Space, Spin, Table } from "antd";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,12 @@ const TableUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenModalChange, setIsOpenModalChange] = useState(false);
   const [dataUser, setDataUser] = useState({});
+  const isLoginAddUser = useSelector((state) => state.User.loadingAddUser);
+  const [idRemove, setIdRemove] = useState();
+  const isLoadingChangeUser = useSelector(
+    (state) => state.User.loadingChangeUser
+  );
+  const isLoadingDelete = useSelector((state) => state.User.loadingDelete);
 
   const columns = [
     {
@@ -47,6 +53,7 @@ const TableUser = () => {
             onClick={() => {
               showDeleteConfirm(record.id);
             }}
+            loading={record.id === idRemove ? isLoadingDelete : false}
           >
             Delete
           </Button>
@@ -56,6 +63,7 @@ const TableUser = () => {
   ];
 
   const showDeleteConfirm = (id) => {
+    setIdRemove(id);
     confirm({
       title: "Bạn có chắc chắn muốn xoá ??",
       icon: <ExclamationCircleOutlined />,
@@ -122,11 +130,13 @@ const TableUser = () => {
       <ModalAddUser
         showModalAddUser={isModalOpen}
         setIsModalOpen={setIsModalOpen}
+        isLoginAddUser={isLoginAddUser}
       />
       <ModalChangeUser
         showModal={isOpenModalChange}
         setShowModalUser={setIsOpenModalChange}
         dataUSer={dataUser}
+        isLoadingChangeUser={isLoadingChangeUser}
       />
     </div>
   );

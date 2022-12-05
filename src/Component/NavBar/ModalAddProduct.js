@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Form, Input, InputNumber, Modal } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../Store/Actions/Product";
-const ModalAddProduct = ({ isModalOpen, setIsModalOpen }) => {
+const ModalAddProduct = ({ isModalOpen, setIsModalOpen, isLoading }) => {
   const dispatch = useDispatch();
   const handleOk = () => {
     setIsModalOpen(false);
@@ -18,7 +18,9 @@ const ModalAddProduct = ({ isModalOpen, setIsModalOpen }) => {
       id: Math.floor(Math.random() * 10000),
     };
     dispatch(addProduct(data));
-    setIsModalOpen(false);
+    setTimeout(() => {
+      setIsModalOpen(false);
+    }, 1000);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -98,7 +100,7 @@ const ModalAddProduct = ({ isModalOpen, setIsModalOpen }) => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="danger" htmlType="submit">
+            <Button type="danger" htmlType="submit" loading={isLoading}>
               add product
             </Button>
           </Form.Item>

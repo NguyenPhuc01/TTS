@@ -3,7 +3,12 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../Store/Actions/User";
 
-const ModalChangeUser = ({ dataUSer, setShowModalUser, showModal }) => {
+const ModalChangeUser = ({
+  dataUSer,
+  setShowModalUser,
+  showModal,
+  isLoadingChangeUser,
+}) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const handleOk = () => {
@@ -25,7 +30,9 @@ const ModalChangeUser = ({ dataUSer, setShowModalUser, showModal }) => {
   const onFinish = (values) => {
     console.log("Success:", values);
     dispatch(updateUser(values.id, values));
-    setShowModalUser(false);
+    setTimeout(() => {
+      setShowModalUser(false);
+    }, 2000);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -88,7 +95,11 @@ const ModalChangeUser = ({ dataUSer, setShowModalUser, showModal }) => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={isLoadingChangeUser}
+            >
               change
             </Button>
           </Form.Item>
