@@ -1,5 +1,7 @@
 import { Card } from "antd";
+import styled from "styled-components";
 import React from "react";
+const TitleUSer = styled.p``;
 
 const CardAuth = (props) => {
   return (
@@ -10,10 +12,10 @@ const CardAuth = (props) => {
           bordered={false}
           style={{ width: 300, border: "solid 1px black", margin: "10px" }}
         >
-          <p>{props.username}</p>
-          <p>{props.password}</p>
-          <p>{props.email}</p>
-          <p>{props.phone}</p>
+          <TitleUSer>{props.username}</TitleUSer>
+          <TitleUSer>{props.password}</TitleUSer>
+          <TitleUSer>{props.email}</TitleUSer>
+          <TitleUSer>{props.phone}</TitleUSer>
         </Card>
       </div>
     </div>

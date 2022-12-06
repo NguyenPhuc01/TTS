@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { userRegister } from "../../Store/Actions/Auth";
-import styles from "../Register/Register.module.css";
 
 const { Option } = Select;
 

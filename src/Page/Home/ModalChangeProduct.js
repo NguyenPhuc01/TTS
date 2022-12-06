@@ -32,7 +32,7 @@ const ModalChangeProduct = ({ show, setShow, data, loading }) => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div>
+    <>
       <Modal
         forceRender
         getContainer={false}
@@ -122,7 +122,7 @@ const ModalChangeProduct = ({ show, setShow, data, loading }) => {
           </Form.Item>
         </Form>
       </Modal>
-    </div>
+    </>
   );
 };
 export default ModalChangeProduct;

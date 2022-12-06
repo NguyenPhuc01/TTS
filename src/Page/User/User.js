@@ -1,12 +1,23 @@
 import { Button, Col, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CardAuth from "../../Component/CardAuth/CardAuth";
+import CardAuth from "../../Component/CardUser/CardUSer";
 import NavBar from "../../Component/NavBar/NavBar";
-import { getAllUser, removeUser } from "../../Store/Actions/AuthAction";
-import styles from "../User/User.module.css";
 import ModalAddUser from "./ModalAddUser";
 import ModalChangeUser from "./ModalChangeUser";
+import styled from "styled-components";
+import { getAllUser, removeUser } from "../../Store/Actions/User";
+const ContainerUSer = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
+`;
+const BtnFunc = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const CardUser = styled.div``;
 const GetAllUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenModalChange, setIsOpenModalChange] = useState(false);
@@ -18,7 +29,7 @@ const GetAllUser = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const listUser = useSelector((state) => state.authReducer.allUser);
+  const listUser = useSelector((state) => state.User.allUser);
   const handleRemoveUser = (id) => {
     dispatch(removeUser(id));
   };
@@ -34,17 +45,17 @@ const GetAllUser = () => {
     setIsOpenModalChange(true);
   };
   return (
-    <div>
+    <>
       <NavBar />
       <Row>
         <Col>
           <Button className="" onClick={showModal}>
             add User
           </Button>
-          <div className={styles.user}>
+          <ContainerUSer>
             {listUser?.map((e) => {
               return (
-                <div key={e.id}>
+                <CardUser key={e.id}>
                   <CardAuth
                     title={`user widthId: ${e.id}`}
                     username={e.username}
@@ -53,7 +64,7 @@ const GetAllUser = () => {
                     phone={e.phone}
                   />
 
-                  <div className={styles.btnfuc}>
+                  <BtnFunc>
                     <Button
                       onClick={() => {
                         handleChangeUser({
@@ -74,11 +85,11 @@ const GetAllUser = () => {
                     >
                       Remove
                     </Button>
-                  </div>
-                </div>
+                  </BtnFunc>
+                </CardUser>
               );
             })}
-          </div>
+          </ContainerUSer>
           <ModalAddUser
             showModalAddUser={isModalOpen}
             setIsModalOpen={setIsModalOpen}
@@ -90,7 +101,7 @@ const GetAllUser = () => {
           />
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 

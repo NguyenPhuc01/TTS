@@ -2,11 +2,38 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Row, message, Spin, notification } from "antd";
 import NavBar from "../../Component/NavBar/NavBar";
 import CardLayout from "../../Component/Card/CardLayout";
-import styles from "../Home/Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct, removeProduct } from "../../Store/Actions/Product";
 import { Link } from "react-router-dom";
 import ModalChangeProduct from "./ModalChangeProduct";
+import styled from "styled-components";
+
+const StyledCard = styled.div`
+  display: flex;
+
+  @media only screen and (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
+  }
+`;
+const BtnFunc = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+`;
+const CardProduct = styled.div`
+  width: 240px;
+  height: 350px;
+  margin: "10px";
+`;
+const StyledLoading = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+`;
 const Home = () => {
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
@@ -67,7 +94,7 @@ const Home = () => {
     setSearch(titleCase(search));
   }, [search]);
   return (
-    <div>
+    <>
       <NavBar
         search={search}
         onChange={(e) => {
@@ -77,7 +104,7 @@ const Home = () => {
 
       <Row>
         <Col md={24}>
-          <div className={styles.card}>
+          <StyledCard>
             {!isLoadingProduct ? (
               listProduct
                 ?.filter((val) => {
@@ -89,7 +116,7 @@ const Home = () => {
                 })
                 .map((e, i) => {
                   return (
-                    <div key={e.id}>
+                    <CardProduct key={e.id}>
                       <Link to={`/${e.id}`}>
                         <CardLayout
                           image={e.image}
@@ -97,7 +124,7 @@ const Home = () => {
                           description={e.price}
                         />
                       </Link>
-                      <div className={styles.btnfunc}>
+                      <BtnFunc>
                         <Button
                           onClick={() => {
                             handleShowModalProduct({
@@ -117,34 +144,32 @@ const Home = () => {
                           onClick={() => {
                             handleDeleteProduct(e.id);
                           }}
-                          loading={e.id === idProduct ? true : false}
+                          loading={e.id === idProduct ? isLoadingRemove : false}
                         >
                           xoá
                         </Button>
-                      </div>
-                    </div>
+                      </BtnFunc>
+                    </CardProduct>
                   );
                 })
             ) : (
-              <div className={styles.loading}>
+              <StyledLoading>
                 <Spin size="large" />
-              </div>
+              </StyledLoading>
             )}
-          </div>
+          </StyledCard>
 
-          <div>
-            {show && (
-              <ModalChangeProduct
-                show={show}
-                setShow={setShow}
-                data={dataProduct}
-                loading={isLoadingUpdate}
-              />
-            )}
-          </div>
+          {show && (
+            <ModalChangeProduct
+              show={show}
+              setShow={setShow}
+              data={dataProduct}
+              loading={isLoadingUpdate}
+            />
+          )}
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 

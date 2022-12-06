@@ -6,6 +6,15 @@ import ModalAddUser from "../User/ModalAddUser";
 import ModalChangeUser from "../User/ModalChangeUser";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { getAllUser, removeUser } from "../../Store/Actions/User";
+import styled from "styled-components";
+
+const LoadingTable = styled.div`
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const { confirm } = Modal;
 const TableUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -101,32 +110,23 @@ const TableUser = () => {
   };
 
   return (
-    <div>
+    <>
       <Button style={{ margin: 20 }} onClick={showModal}>
         add user
       </Button>
 
-      <div>
-        {isLoading ? (
-          <div
-            style={{
-              width: "100vw",
-              height: "80vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Spin size="large" />
-          </div>
-        ) : (
-          <Table
-            columns={columns}
-            dataSource={listUser}
-            rowKey={(record) => record.id}
-          />
-        )}
-      </div>
+      {isLoading ? (
+        <LoadingTable>
+          <Spin size="large" />
+        </LoadingTable>
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={listUser}
+          rowKey={(record) => record.id}
+        />
+      )}
+
       <ModalAddUser
         showModalAddUser={isModalOpen}
         setIsModalOpen={setIsModalOpen}
@@ -138,7 +138,7 @@ const TableUser = () => {
         dataUSer={dataUser}
         isLoadingChangeUser={isLoadingChangeUser}
       />
-    </div>
+    </>
   );
 };
 

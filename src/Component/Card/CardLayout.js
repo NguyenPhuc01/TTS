@@ -1,28 +1,17 @@
 import { Card } from "antd";
 import React from "react";
+import styled from "styled-components";
 const { Meta } = Card;
+const CardImage = styled.img`
+  width: 200px;
+  height: 200px;
+  padding-top: 10px;
+`;
 const CardLayout = (props) => {
   return (
-    
-    <div>
-      <Card
-        hoverable
-        style={{
-          width: 240,
-          height: 350,
-          margin: "10px",
-        }}
-        cover={
-          <img
-            alt="example"
-            src={props.image}
-            style={{ width: 200, height: 200, paddingTop: 10 }}
-          />
-        }
-      >
-        <Meta title={props.title} description={props.description} />
-      </Card>
-    </div>
+    <Card hoverable cover={<CardImage alt="example" src={props.image} />}>
+      <Meta title={props.title} description={props.description} />
+    </Card>
   );
 };
 

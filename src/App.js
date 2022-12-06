@@ -4,7 +4,7 @@ import DetailProduct from "./Page/DetailProduct/DetailProduct";
 import Home from "./Page/Home/Home";
 import Login from "./Page/Login/Login";
 import Register from "./Page/Register/Register";
-// import User from "../src/Page/User/User";
+import User from "../src/Page/User/User";
 import TableUser from "./Page/TableUser/TableUser";
 import PrivateRouter from "./PrivateRouter";
 

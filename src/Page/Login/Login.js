@@ -10,11 +10,13 @@ import {
 } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "../Login/Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../Store/Actions/Auth";
 import { useEffect } from "react";
-
+import styled from "styled-components";
+const FormLogin = styled.div`
+  margin-top: 20px;
+`;
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,19 +39,19 @@ const Login = () => {
         description: error?.response?.data,
       });
     }
-  }, [error?.response?.data]);
+  }, [error]);
   return (
     <Row>
       <Col md={6}></Col>
       <Col md={12}>
-        <div className={styles.LoginForm}>
+        <FormLogin>
           <Form
             name="basic"
             labelCol={{
-              span: 24,
+              span: 8,
             }}
             wrapperCol={{
-              span: 24,
+              span: 12,
             }}
             initialValues={{
               remember: true,
@@ -59,7 +61,6 @@ const Login = () => {
             autoComplete="off"
           >
             <Form.Item
-              className={styles.userName}
               label="username"
               name="username"
               rules={[
@@ -90,7 +91,7 @@ const Login = () => {
               valuePropName="checked"
               wrapperCol={{
                 offset: 8,
-                span: 16,
+                span: 12,
               }}
             >
               <Checkbox>Remember me</Checkbox>
@@ -98,8 +99,8 @@ const Login = () => {
 
             <Form.Item
               wrapperCol={{
-                offset: 8,
-                span: 16,
+                offset: 18,
+                span: 12,
               }}
             >
               {isLoding ? (
@@ -111,7 +112,7 @@ const Login = () => {
               )}
             </Form.Item>
           </Form>
-        </div>
+        </FormLogin>
       </Col>
       <Col md={6}></Col>
     </Row>
