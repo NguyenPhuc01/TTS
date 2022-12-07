@@ -114,7 +114,6 @@ const TableUser = () => {
       <Button style={{ margin: 20 }} onClick={showModal}>
         add user
       </Button>
-
       {isLoading ? (
         <LoadingTable>
           <Spin size="large" />
@@ -126,7 +125,6 @@ const TableUser = () => {
           rowKey={(record) => record.id}
         />
       )}
-
       <ModalAddUser
         showModalAddUser={isModalOpen}
         setIsModalOpen={setIsModalOpen}

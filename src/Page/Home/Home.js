@@ -17,7 +17,7 @@ const StyledCard = styled.div`
     grid-template-rows: auto auto auto auto auto;
   }
 `;
-const BtnFunc = styled.div`
+const WrapButton = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 15px;
@@ -124,7 +124,7 @@ const Home = () => {
                           description={e.price}
                         />
                       </Link>
-                      <BtnFunc>
+                      <WrapButton>
                         <Button
                           onClick={() => {
                             handleShowModalProduct({
@@ -148,7 +148,7 @@ const Home = () => {
                         >
                           xoá
                         </Button>
-                      </BtnFunc>
+                      </WrapButton>
                     </CardProduct>
                   );
                 })

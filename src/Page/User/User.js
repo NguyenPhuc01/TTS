@@ -63,7 +63,6 @@ const GetAllUser = () => {
                     email={e.email}
                     phone={e.phone}
                   />
-
                   <BtnFunc>
                     <Button
                       onClick={() => {

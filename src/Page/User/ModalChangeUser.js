@@ -39,7 +39,7 @@ const ModalChangeUser = ({
   };
 
   return (
-    <div>
+    <>
       <Modal
         forceRender
         title="Basic Modal"
@@ -105,7 +105,7 @@ const ModalChangeUser = ({
           </Form.Item>
         </Form>
       </Modal>
-    </div>
+    </>
   );
 };
 
